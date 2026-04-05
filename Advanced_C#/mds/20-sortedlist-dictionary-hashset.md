@@ -1,512 +1,605 @@
-# SortedList, Dictionary & HashSet — Deep Dive
+# SortedList, Dictionary, and HashSet in C#
 
-## 🧠 Overview
-
-This guide dives deep into three critical C# collections — `SortedList<K,V>`, `Dictionary<K,V>`, and `HashSet<T>` — covering their internal data structures, hashing theory, collision handling, and the `GetHashCode`/`Equals` contract.
-
----
-
-## 🟣 Part 1: SortedList\<TKey, TValue\>
-
-### What Is It?
-
-`SortedList<TKey, TValue>` is a key-value collection backed by **two parallel sorted arrays** — one for keys, one for values. Keys are **always maintained in ascending order**, and it uniquely supports **index-based positional access** (`Keys[0]`, `Values[2]`).
+## Table of Contents
+1. [Understanding Dictionary](#understanding-dictionary)
+2. [Understanding HashSet](#understanding-hashset)
+3. [Understanding SortedList and SortedDictionary](#understanding-sortedlist-and-sorteddictionary)
+4. [Hashing and Collision Resolution](#hashing-and-collision-resolution)
+5. [Collection Comparison](#collection-comparison)
+6. [Real-World Use Cases](#real-world-use-cases)
+7. [Memory and Performance](#memory-and-performance)
+8. [Best Practices and Pitfalls](#best-practices-and-pitfalls)
 
 ---
 
-### 🌍 Real-World Analogy
+## Understanding Dictionary
 
-Imagine a **phone book** — names (keys) are sorted alphabetically, and phone numbers (values) sit next to them. You can flip to a position by index, look up by name with binary search, but adding someone in the middle means shifting everyone else down the page.
+### What is Dictionary?
 
----
+`Dictionary<TKey, TValue>` is a **hash table** implementation providing O(1) average time complexity for insert, delete, and lookup operations. It maps keys to values using a hash function.
 
-### ⚙️ Internal Structure — Two Parallel Arrays
+### Hash Table Structure
 
 ```
-After: marks["Ahmed"]=60, marks["Bola"]=65, marks["Mohamed"]=50, marks["Salma"]=80
-
-keys[]                 values[]
-  0   "Ahmed"            0   60
-  1   "Bola"             1   65
-  2   "Mohamed"          2   50
-  3   "Salma"            3   80
-
-keys[i] always maps to values[i].
-Binary search on keys[] → O(log n) lookup.
+┌─────────────────────────────────────────────────────────────────┐
+│                    DICTIONARY (HASH TABLE) STRUCTURE               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Memory Layout:                                                │
+│   ┌─────────────────────────────────────────────────────────┐    │
+│   │  Buckets (Array of Entry references)                      │    │
+│   │  ┌─────┬─────┬─────┬─────┬─────┬─────┐                  │    │
+│   │  │  0  │  1  │  2  │  3  │  4  │ ... │                  │    │
+│   │  │  │  │  │  │  │  │     │     │      │                  │    │
+│   │  └──┼──┴──┼──┴──┼──┘     └─────┘      │                  │    │
+│   │     │     │     │                        │                  │    │
+│   │     ↓     ↓     ↓                        │                  │    │
+│   │  ┌─────────┐ ┌─────────┐ ┌─────────┐ │                  │    │
+│   │  │ Entry   │ │ Entry   │ │ Entry   │ │                  │    │
+│   │  │ Key: A  │ │ Key: B  │ │ Key: C  │ │                  │    │
+│   │  │ Val: 1  │ │ Val: 2  │ │ Val: 3  │ │                  │    │
+│   │  │ hash:A  │→│ hash:B  │→│ hash:C  │→│ null             │    │
+│   │  └─────────┘ └─────────┘ └─────────┘ │                  │    │
+│   │     Bucket 1      Bucket 2    Bucket 3 │                  │    │
+│   └─────────────────────────────────────────────────────────┘    │
+│                                                                  │
+│   Hash Function: hashCode % bucketCount = bucketIndex              │
+│                                                                  │
+│   Lookup Process:                                                │
+│   1. Compute hash of key                                          │
+│   2. Find bucket index                                            │
+│   3. Traverse chain to find matching key                        │
+│   4. Return value                                                 │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
----
-
-### 💻 Code Examples
+### Dictionary Usage
 
 ```csharp
-SortedList<string, int> marks = new()
+public class DictionaryDemo
 {
-    ["Mohamed"] = 50,
-    ["Salma"]   = 80,
-    ["Ahmed"]   = 60,
-    ["Bola"]    = 65
-};
-
-// Iteration is ALWAYS in key-sorted order
-foreach (var kvp in marks)
-    Console.WriteLine($"{kvp.Key}: {kvp.Value}");
-// → Ahmed:60, Bola:65, Mohamed:50, Salma:80
-
-// ── Index access — UNIQUE to SortedList! ──────────────────────
-Console.WriteLine(marks.Keys[0]);   // O(1) → "Ahmed"
-Console.WriteLine(marks.Values[0]); // O(1) → 60
-
-// ── Add / Remove ───────────────────────────────────────────────
-marks.Add("Laila", 75);             // O(n) — binary search to find position + shift
-marks.Remove("Ahmed");              // O(n) — find + shift remaining elements
-marks["Ahmed"] = 95;                // Add OR update
-
-// ── Safe Access ────────────────────────────────────────────────
-// ❌ marks["Ahmed"] throws KeyNotFoundException if missing
-if (marks.TryGetValue("Ahmed", out int val))  // O(log n) ← recommended
-    Console.WriteLine(val);
-else
-    Console.WriteLine("Ahmed Not Found");
-
-int pos = marks.IndexOfKey("Bola");  // O(log n) — returns position in sorted order
-```
-
-### Complexity
-
-| Operation | Complexity | Reason |
-|---|---|---|
-| `Add(key, val)` | O(n) | Binary search O(log n) + array shift O(n) |
-| `Remove(key)` | O(n) | Find + shift remaining |
-| `this[key]` (get) | O(log n) | Binary search on keys array |
-| `ContainsKey` | O(log n) | Binary search |
-| `Keys[i]` | O(1) | Direct array index |
-| `IndexOfKey` | O(log n) | Binary search |
-
----
-
-### ⚙️ How Add() Works Internally
-
-```csharp
-// Suppose: keys = ["Ahmed","Bola","Salma"], _size = 3
-// We call: marks.Add("Mohamed", 50);
-
-// Step 1: Binary search → insertion index = 2 (between "Bola" and "Salma")
-int i = Array.BinarySearch(keys, 0, _size, "Mohamed", comparer); // O(log n)
-// If i >= 0 → duplicate key → throws ArgumentException
-
-// Step 2: Ensure capacity (doubles like List<T> if needed)
-
-// Step 3: SHIFT keys[] and values[] right to make room  ← O(n) BOTTLENECK
-Array.Copy(keys,   i, keys,   i + 1, _size - i);
-Array.Copy(values, i, values, i + 1, _size - i);
-
-// Step 4: Insert at found position
-keys[i]   = "Mohamed";
-values[i] = 50;
-_size++;
-version++;
-```
-
-> ⚠️ **Why Add is O(n) even though search is O(log n):** Finding the insertion point takes O(log n) via binary search — but shifting all elements after the point takes O(n). The **shift is the bottleneck**.
-
----
-
-### 💡 When to Use SortedList
-
-```
-✅ Need key-value pairs
-✅ Need them always sorted
-✅ Need positional access (Keys[i])
-✅ Inserts are infrequent (it's heavy on insert)
-
-→ Use SortedDictionary if inserts are frequent (tree-based, O(log n) insert)
-→ Use Dictionary if you don't need sorted order (fastest, O(1) all ops)
-```
-
----
-
-## 🔵 Part 2: Dictionary\<TKey, TValue\>
-
-### The Problem: Why We Need Hashing
-
-Before hashing, finding an element meant searching through the collection.
-
-```csharp
-// Linear Search — O(n)
-// 1,000,000 students → worst case: 1,000,000 comparisons
-for (int i = 0; i < names.Length; i++)
-    if (names[i] == "Salma") return i;
-
-// Binary Search — O(log n) (requires sorted data)
-// 1,000,000 elements → ~20 comparisons
-// BUT: requires sorting first O(n log n), and inserts re-sort
-Array.BinarySearch(sortedNames, "Salma");
-```
-
-### 💡 The Core Idea: O(1) — Constant Time
-
-```csharp
-// Instead of searching, CALCULATE where the element is stored:
-int hashCode = "Salma".GetHashCode();       // → some big integer, e.g. 482947
-int index    = Math.Abs(hashCode) % tableSize; // → e.g. 482947 % 7 = 2
-table[index] = 90; // store
-var mark = table[index]; // retrieve in O(1) — no loop!
-```
-
----
-
-### 🔥 Collision Strategies
-
-A **collision** occurs when two different keys produce the same array index. This is inevitable — the question is how to handle it.
-
-#### Strategy A: Open Addressing — all entries stored IN the array
-
-```
-A1 — Linear Probing:   index = (hash + i) % n      where i = 1, 2, 3...
-     Probes sequentially. Simple but creates clustering.
-
-A2 — Quadratic Probing: index = (hash + i²) % n
-     Probes jump further each step. Reduces clustering.
-
-A3 — Double Hashing:   index = (hash1 + i × hash2) % n   ← BEST open addressing
-     Step size varies per key → minimal clustering.
-```
-
-| Strategy | Formula | Clustering | Notes |
-|---|---|---|---|
-| Linear Probing | `(h + i) % n` | Primary (bad) | Simple, cache-friendly, bunches |
-| Quadratic Probing | `(h + i²) % n` | Secondary | Better spread |
-| Double Hashing | `(h1 + i×h2) % n` | Minimal | Best distribution |
-
-#### Strategy B: Separate Chaining — each bucket holds a list
-
-```
-bucket 0:  null
-bucket 1:  null
-bucket 2:  [Mona→300] → [Ahmed→100] → null  ← both hash to 2
-bucket 3:  [Omar→200] → null
-bucket 4:  null
-
-To find "Ahmed": hash → bucket 2 → scan chain: Mona? No → Ahmed? ✅
-```
-
-> **.NET's `Dictionary<K,V>` uses array-based chaining** (entries stored in an `Entry[]` struct array, chained via integer `next` index fields — not heap-allocated linked list nodes). Result: O(1) average for all operations.
-
----
-
-### 💻 Basic Dictionary Usage
-
-```csharp
-Dictionary<int, string> students = new()
-{
-    [101] = "Ali",
-    [102] = "Mohamed",
-    [103] = "Salma"
-};
-
-// ── Three ways to Add — know the difference! ──────────────────
-students[104]          = "Laila"; // ✅ Add OR Update — never throws
-students.Add(104, "Mona");        // ⚠️ Add ONLY — throws ArgumentException if exists!
-bool ok = students.TryAdd(101, "X"); // ✅ Add ONLY — returns false if exists, no throw
-
-// ── Safe Access Patterns ───────────────────────────────────────
-// ❌ Dangerous — throws KeyNotFoundException if missing
-string name = students[999];
-
-// ✅ Pattern 1: ContainsKey (two lookups)
-if (students.ContainsKey(999))
-    Console.WriteLine(students[999]);
-
-// ✅ Pattern 2: TryGetValue — BEST. One lookup. Safe. Outputs value.
-if (students.TryGetValue(999, out string? n))
-    Console.WriteLine($"Found: {n}");
-else
-    Console.WriteLine("Not found");
-
-// ✅ Pattern 3: GetValueOrDefault — returns null/default if missing
-string? result = students.GetValueOrDefault(999);
-```
-
-### Complexity
-
-| Operation | Complexity |
-|---|---|
-| `this[key]` get/set | O(1) avg |
-| `Add` / `TryAdd` | O(1) avg |
-| `Remove(key)` | O(1) avg |
-| `ContainsKey` | O(1) avg |
-| `ContainsValue` | O(n) — full scan! |
-| `TryGetValue` | O(1) avg |
-
----
-
-### 💻 Iterating
-
-```csharp
-Dictionary<string, int> ages = new()
-{
-    ["Ahmed"]   = 25,
-    ["Mohamed"] = 30,
-    ["Salma"]   = 30
-};
-
-// Deconstruct KeyValuePair
-foreach (var (name, age) in ages)
-    Console.WriteLine($"{name}: {age}");
-
-// Keys only / Values only
-foreach (string key   in ages.Keys)   Console.Write($"{key} ");
-foreach (int   value  in ages.Values) Console.Write($"{value} ");
-
-bool has30 = ages.ContainsValue(30); // O(n) — linear scan of values
-ages.Remove("Mohamed");              // O(1) average
-ages.Clear();                        // O(n) — nulls all entries
-```
-
----
-
-### ⚙️ How Dictionary Works Internally
-
-```csharp
-// Two core arrays:
-int[]   _buckets; // routing table — stores 1-based index into _entries (0 = empty bucket)
-Entry[] _entries; // all data lives here
-
-struct Entry {
-    uint hashCode;  // pre-computed hash
-    int  next;      // chain link: index of next entry in bucket (-1 = end)
-    TKey   key;
-    TValue value;
+    public static void Main()
+    {
+        // Create dictionary
+        Dictionary<string, int> ages = new();
+        
+        // Add (O(1) average)
+        ages["Alice"] = 30;
+        ages.Add("Bob", 25);
+        ages.TryAdd("Charlie", 35); // Returns false if key exists
+        
+        // Lookup (O(1) average)
+        int aliceAge = ages["Alice"]; // 30
+        bool hasBob = ages.ContainsKey("Bob"); // true
+        bool hasDiana = ages.TryGetValue("Diana", out int dianaAge); // false
+        
+        // Update
+        ages["Alice"] = 31; // Overwrite
+        
+        // Remove (O(1) average)
+        ages.Remove("Bob");
+        
+        // Iterate
+        foreach (var (name, age) in ages)
+        {
+            Console.WriteLine($"{name}: {age}");
+        }
+        
+        // Count
+        Console.WriteLine($"Count: {ages.Count}");
+    }
 }
 ```
 
-### Step-by-Step: `Add("Ali", 100)`
-
-```
-1. hashCode = GetHashCode("Ali")          → e.g. 17
-2. bucketIndex = 17 % _buckets.Length     → e.g. 17 % 5 = 2
-3. _buckets[2] == 0 → empty bucket, no collision
-4. Write entry:  _entries[0] = { hash=17, next=-1, key="Ali", value=100 }
-5. _buckets[2] = 1  (1-based: entry at index 0)
-
-_buckets = [0, 0, 1, 0, 0]
-_entries[0] = { hash=17, next=-1, "Ali" → 100 }
-```
-
-### Step-by-Step: `Add("Mona", 300)` — Collision!
-
-```
-1. "Mona" → hashCode=22 → bucket 22%5=2 → collision! _buckets[2] ≠ 0
-
-2. Write new entry at index 2:
-   _entries[2] = { hash=22, next=0 ← old head, key="Mona", value=300 }
-
-3. Update bucket head: _buckets[2] = 3 (entry at index 2 is new head)
-
-Bucket 2 chain: _entries[2]("Mona") → _entries[0]("Ali") → end(-1)
-```
-
-### Step-by-Step: Lookup `dict["Ali"]`
-
-```
-1. hash("Ali") = 17
-2. bucket = 17 % 5 = 2
-3. chain head = _buckets[2] - 1 = 2 → _entries[2]
-4. _entries[2].key = "Mona" ≠ "Ali" → follow next = 0 → _entries[0]
-5. _entries[0].key = "Ali" ✅ → return _entries[0].value = 100
-```
-
 ---
 
-### ⚠️ The Mutable Key Trap
+## Understanding HashSet
+
+### What is HashSet?
+
+`HashSet<T>` is a **set data structure** based on a hash table. It stores unique elements with O(1) lookup, add, and remove operations.
+
+### HashSet Structure
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    HASHSET STRUCTURE                               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Similar to Dictionary but only stores keys:                   │
+│                                                                  │
+│   ┌─────────────────────────────────────────────────────────┐    │
+│   │  Buckets                                                │    │
+│   │  ┌─────┬─────┬─────┬─────┬─────┐                      │    │
+│   │  │  0  │  1  │  2  │  3  │  4  │                      │    │
+│   │  │  │  │  │  │  │  │     │     │                      │    │
+│   │  └──┼──┴──┼──┴──┼──┘     └─────┘                      │    │
+│   │     │     │     │                                      │    │
+│   │     ↓     ↓     ↓                                      │    │
+│   │  ┌─────────┐ ┌─────────┐ ┌─────────┐                  │    │
+│   │  │ "Alice" │→│ "Bob"   │→│ "Charlie"│→│ null         │    │
+│   │  │ hash:A  │ │ hash:B  │ │ hash:C  │                  │    │
+│   │  └─────────┘ └─────────┘ └─────────┘                  │    │
+│   │                                                      │    │
+│   └─────────────────────────────────────────────────────────┘    │
+│                                                                  │
+│   Operations:                                                    │
+│   ├─ Add(item): O(1) - add if not present                       │
+│   ├─ Remove(item): O(1) - remove if present                     │
+│   ├─ Contains(item): O(1) - check presence                      │
+│   └─ UnionWith, IntersectWith, ExceptWith: set operations       │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### HashSet Usage
 
 ```csharp
-var std01 = new Student(10, "Salma", 50);
-Dictionary<Student, int> marks = new();
-marks[std01] = 500;
-
-Console.WriteLine(marks.ContainsKey(std01)); // true
-
-std01.Name = "Laila"; // ← MUTATE the key object!
-// GetHashCode now returns a DIFFERENT value (Name is in Combine(Id, Name))
-// Dictionary looks in the WRONG bucket → entry is permanently lost!
-Console.WriteLine(marks.ContainsKey(std01)); // false 💥
-
-// ✅ Fix: use immutable record as key
-public record StudentRecord(int Id, string Name, int Age);
-// record auto-generates value-based GetHashCode + Equals
-// rec.Name = "Laila" → ❌ won't compile — init-only properties
+public class HashSetDemo
+{
+    public static void Main()
+    {
+        // Create HashSet
+        HashSet<string> uniqueNames = new();
+        
+        // Add (O(1), returns false if already exists)
+        uniqueNames.Add("Alice"); // true
+        uniqueNames.Add("Bob");   // true
+        uniqueNames.Add("Alice"); // false - duplicate
+        
+        // Contains (O(1))
+        bool hasAlice = uniqueNames.Contains("Alice"); // true
+        
+        // Set Operations
+        var set1 = new HashSet<int> { 1, 2, 3, 4 };
+        var set2 = new HashSet<int> { 3, 4, 5, 6 };
+        
+        set1.UnionWith(set2);        // { 1, 2, 3, 4, 5, 6 }
+        set1.IntersectWith(set2);    // { 3, 4 }
+        set1.ExceptWith(set2);       // { 1, 2 }
+        set1.SymmetricExceptWith(set2); // { 1, 2, 5, 6 }
+        
+        // Check subset/superset
+        bool isSubset = set1.IsSubsetOf(set2);
+        bool isSuperset = set1.IsSupersetOf(set2);
+    }
+}
 ```
 
 ---
 
-### 🔑 Why You Need Both GetHashCode AND Equals
+## Understanding SortedList and SortedDictionary
+
+### What are Sorted Collections?
+
+`SortedList<TKey, TValue>` and `SortedDictionary<TKey, TValue>` maintain keys in sorted order. They use different internal structures:
+- **SortedList**: Two arrays (keys and values), memory efficient
+- **SortedDictionary**: Red-Black tree, better for frequent updates
+
+### SortedList Structure
 
 ```
-Dictionary uses two-phase lookup:
-
-Phase 1 — GetHashCode → Find the BUCKET
-  Hash codes are NOT unique. Many keys → same bucket.
-  GetHashCode is just a fast filter. Not the final answer.
-
-Phase 2 — Equals → Confirm the exact KEY
-  Walk the bucket's chain, calling Equals() on each entry.
-  This is the definitive check.
-
-THE GOLDEN RULE:
-  If two objects are Equals() → they MUST return the same GetHashCode().
-  Violation = Dictionary is permanently broken for those keys.
+┌─────────────────────────────────────────────────────────────────┐
+│                    SORTEDLIST STRUCTURE                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Two parallel arrays kept in sorted order:                     │
+│   ┌─────────────────────────────────────────────────────────┐    │
+│   │  Keys Array           │  Values Array                   │    │
+│   │  ┌─────────────────┐  │  ┌─────────────────┐            │    │
+│   │  │ "Alice"         │  │  │ 30              │            │    │
+│   │  │ "Bob"           │  │  │ 25              │            │    │
+│   │  │ "Charlie"       │  │  │ 35              │            │    │
+│   │  │ "Diana"         │  │  │ 28              │            │    │
+│   │  └─────────────────┘  │  └─────────────────┘            │    │
+│   │        ↑                  ↑                              │    │
+│   │        Sorted by key      Aligned values               │    │
+│   └─────────────────────────────────────────────────────────┘    │
+│                                                                  │
+│   Lookup: Binary Search O(log n)                                │
+│   Insert: Find position, shift elements O(n)                  │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
 ```
+
+### SortedDictionary Structure
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    SORTEDDICTIONARY (RED-BLACK TREE)             │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Self-balancing binary search tree:                            │
+│                                                                  │
+│              ┌─────────┐                                          │
+│              │ "Charlie"│ ← Root                                  │
+│              │   35    │                                          │
+│              └────┬────┘                                          │
+│            ┌──────┴──────┐                                      │
+│            ▼             ▼                                      │
+│       ┌─────────┐   ┌─────────┐                                │
+│       │ "Bob"   │   │ "Diana" │                                │
+│       │   25    │   │   28    │                                │
+│       └────┬────┘   └─────────┘                                │
+│              ▼                                                   │
+│       ┌─────────┐                                              │
+│       │ "Alice" │                                              │
+│       │   30    │                                              │
+│       └─────────┘                                              │
+│                                                                  │
+│   Lookup: O(log n) - tree traversal                             │
+│   Insert: O(log n) - insert + rebalance                         │
+│                                                                  │
+│   Red-Black Tree ensures balance:                                │
+│   ├─ All paths have same number of black nodes                  │
+│   ├─ No two red nodes adjacent                                  │
+│   └─ Guarantees O(log n) height                                │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Comparison: SortedList vs SortedDictionary
 
 ```csharp
-// Class with GetHashCode but NO Equals override
-var s1 = new Student(10, "Salma", 20);
-var s2 = new Student(10, "Salma", 20);
-
-s1.GetHashCode() == s2.GetHashCode(); // true (same Id+Name)
-s1.Equals(s2);                        // FALSE — inherits object.Equals → reference equality
-// Dictionary treats s1 and s2 as DIFFERENT keys!
-
-// Record — auto-generates BOTH correctly
-var r1 = new StudentRecord(10, "Salma", 20);
-var r2 = new StudentRecord(10, "Salma", 20);
-
-r1.GetHashCode() == r2.GetHashCode(); // true
-r1.Equals(r2);                        // TRUE — value equality
-// Dictionary correctly treats r1 and r2 as the SAME key ✅
+public class SortedCollectionsDemo
+{
+    public static void Compare()
+    {
+        // SortedList - better for mostly static data
+        SortedList<string, int> sortedList = new()
+        {
+            { "Alice", 30 },
+            { "Bob", 25 },
+            { "Charlie", 35 }
+        };
+        
+        // SortedDictionary - better for frequently modified data
+        SortedDictionary<string, int> sortedDict = new()
+        {
+            { "Alice", 30 },
+            { "Bob", 25 },
+            { "Charlie", 35 }
+        };
+        
+        // Fast index access in SortedList
+        var firstKey = sortedList.Keys[0]; // "Alice"
+        var firstValue = sortedList.Values[0]; // 30
+        
+        // Enumeration is always sorted
+        foreach (var (key, value) in sortedList)
+        {
+            Console.WriteLine($"{key}: {value}");
+        }
+    }
+}
 ```
 
-| Scenario | GetHashCode | Equals | Dictionary Result |
-|---|---|---|---|
-| Same object | Same | `true` | Same key — value overwritten |
-| Different objects, same data (class, no override) | May differ | `false` (reference) | Treated as different keys |
-| Different objects, same data (record) | Same | `true` | Same key — value overwritten ✅ |
-| Mutated key after insert | Changed | May not match | Entry permanently lost 💥 |
-
 ---
 
-## 🟢 Part 3: HashSet\<T\>
+## Hashing and Collision Resolution
 
-### What Is It?
+### Hash Function
 
-`HashSet<T>` is a **hash table that stores only keys, no values**. Every element is unique. Provides O(1) Add, Remove, and Contains. Built for fast membership testing and mathematical set operations.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    HASH FUNCTION FLOW                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Key: "Alice"                                                   │
+│      │                                                           │
+│      ▼                                                           │
+│   GetHashCode()                                                  │
+│      │                                                           │
+│      ▼                                                           │
+│   Hash Code: 0x3A8F2C1D (example)                              │
+│      │                                                           │
+│      ▼                                                           │
+│   bucketIndex = hashCode % bucketCount                           │
+│      │                                                           │
+│      ▼                                                           │
+│   Index: 5 ← Store/Retrieve from bucket 5                       │
+│                                                                  │
+│   ┌─────────────────────────────────────────────────────────┐    │
+│   │  Collision: When two keys hash to same bucket           │    │
+│   │                                                         │    │
+│   │  "Alice" → hash: 0x3A8F2C1D → index: 5                   │    │
+│   │  "Aaron" → hash: 0x3A8F3000 → index: 5                   │    │
+│   │                                                         │    │
+│   │  Resolution: Chaining (linked list in bucket)           │    │
+│   │  Bucket 5: ["Alice"] → ["Aaron"] → null                 │    │
+│   │                                                         │    │
+│   └─────────────────────────────────────────────────────────┘    │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
----
-
-### 🌍 Real-World Analogy
-
-A **guest list** at an event. You don't store extra info about each guest — just whether they're on the list or not. Checking membership is instant (O(1)). Duplicates are automatically ignored.
-
----
-
-### ⚙️ Internals
+### Custom GetHashCode
 
 ```csharp
-// HashSet shares the same _buckets + _entries design as Dictionary.
-// The ONLY difference: no TValue in the Entry struct.
-
-// Dictionary Entry:
-struct Entry { uint hashCode; int next; TKey key; TValue value; }
-
-// HashSet Entry:
-struct Entry { uint hashCode; int next; T value; } // just the element — no separate value
+public class Person : IEquatable<Person>
+{
+    public string FirstName { get; set; } = "";
+    public string LastName { get; set; } = "";
+    public int Age { get; set; }
+    
+    public override int GetHashCode()
+    {
+        // Combine hash codes of fields
+        return HashCode.Combine(FirstName, LastName, Age);
+    }
+    
+    public override bool Equals(object? obj) => 
+        obj is Person p && Equals(p);
+    
+    public bool Equals(Person? other)
+    {
+        if (other is null) return false;
+        return FirstName == other.FirstName &&
+               LastName == other.LastName &&
+               Age == other.Age;
+    }
+}
 ```
 
 ---
 
-### 💻 Basic Operations
+## Collection Comparison
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    COLLECTION COMPARISON                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Dictionary<TKey, TValue>:                                      │
+│   ├─ Unordered                                                   │
+│   ├─ O(1) lookup, insert, delete                                 │
+│   ├─ Fastest general-purpose key-value storage                   │
+│   └─ Use for: Caches, indexes, lookup tables                     │
+│                                                                  │
+│   HashSet<T>:                                                    │
+│   ├─ Unordered unique collection                                 │
+│   ├─ O(1) add, remove, contains                                  │
+│   ├─ Set operations (union, intersect, etc.)                     │
+│   └─ Use for: Deduplication, membership testing                  │
+│                                                                  │
+│   SortedList<TKey, TValue>:                                      │
+│   ├─ Sorted by key                                               │
+│   ├─ O(log n) lookup, O(n) insert                                │
+│   ├─ Memory efficient, index access                              │
+│   └─ Use for: Sorted data, mostly read-only                     │
+│                                                                  │
+│   SortedDictionary<TKey, TValue>:                                  │
+│   ├─ Sorted by key                                               │
+│   ├─ O(log n) lookup, insert, delete                             │
+│   ├─ Better for frequent modifications                           │
+│   └─ Use for: Dynamic sorted collections                        │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Real-World Use Cases
+
+### Dictionary: In-Memory Cache
 
 ```csharp
-HashSet<int> numbers = [1, 2, 3, 2, 1]; // silently deduplicates → {1, 2, 3}
+public class InMemoryCache<TKey, TValue> where TKey : notnull
+{
+    private readonly Dictionary<TKey, CacheEntry<TValue>> _cache;
+    private readonly TimeSpan _expiration;
 
-// Add — returns bool: true if added, false if duplicate
-bool added = numbers.Add(4); // true — new item
-bool again = numbers.Add(4); // false — duplicate, silently ignored
+    public InMemoryCache(TimeSpan expiration)
+    {
+        _expiration = expiration;
+        _cache = new Dictionary<TKey, CacheEntry<TValue>>();
+    }
 
-// Contains — O(1)! The #1 reason to use HashSet over List
-bool has3 = numbers.Contains(3); // O(1) ← same cost as Dictionary lookup
+    public TValue GetOrAdd(TKey key, Func<TKey, TValue> factory)
+    {
+        if (_cache.TryGetValue(key, out var entry) && entry.Expiration > DateTime.UtcNow)
+        {
+            return entry.Value;
+        }
 
-// Remove — returns true if found and removed
-numbers.Remove(2); // O(1)
+        var value = factory(key);
+        _cache[key] = new CacheEntry<TValue>
+        {
+            Value = value,
+            Expiration = DateTime.UtcNow + _expiration
+        };
 
-// ── Deduplicate a List ─────────────────────────────────────────
-List<int> withDupes = [1, 1, 2, 2, 3];
-List<int> unique = withDupes.ToHashSet().ToList(); // → [1, 2, 3]
+        return value;
+    }
 
-// ── Fast membership test (replaces slow List.Contains) ─────────
-HashSet<string> validRoles = ["Admin", "Editor", "Viewer"];
-if (validRoles.Contains(userRole)) // O(1) — vs List.Contains O(n)!
-    Console.WriteLine("Access granted");
+    public void Remove(TKey key) => _cache.Remove(key);
+
+    private class CacheEntry<T>
+    {
+        public required T Value { get; set; }
+        public DateTime Expiration { get; set; }
+    }
+}
 ```
 
-| Operation | Complexity |
-|---|---|
-| `Add(x)` | O(1) avg |
-| `Remove(x)` | O(1) avg |
-| `Contains(x)` | O(1) avg ← key advantage |
-| `Count` | O(1) |
-| Set operations | O(n) |
-
----
-
-### 💻 Set Math Operations
+### HashSet: Duplicate Detection
 
 ```csharp
-HashSet<int> a = [1, 2, 3, 4];
-HashSet<int> b = [3, 4, 5, 6];
+public class DuplicateDetector
+{
+    public static List<int> FindDuplicates(IEnumerable<int> numbers)
+    {
+        var seen = new HashSet<int>();
+        var duplicates = new HashSet<int>();
 
-// ⚠️ All these modify the set IN PLACE — copy first to preserve original!
-var copy = new HashSet<int>(a);
+        foreach (var number in numbers)
+        {
+            if (!seen.Add(number))
+            {
+                duplicates.Add(number);
+            }
+        }
 
-copy.UnionWith(b);             // O(n) → {1,2,3,4,5,6}  — everything from both (A ∪ B)
-copy.IntersectWith(b);         // O(n) → {3,4}           — only shared elements (A ∩ B)
-copy.ExceptWith(b);            // O(n) → {1,2}           — in A but NOT in B (A − B)
-copy.SymmetricExceptWith(b);   // O(n) → {1,2,5,6}       — in either but NOT both (A △ B)
+        return duplicates.ToList();
+    }
+
+    public static bool HasDuplicates(IEnumerable<int> numbers)
+    {
+        var set = new HashSet<int>();
+        foreach (var number in numbers)
+        {
+            if (!set.Add(number))
+                return true;
+        }
+        return false;
+    }
+}
 ```
 
-### Relationship Checks
+### SortedDictionary: Event Timeline
 
 ```csharp
-HashSet<int> small = [3, 4];
+public class EventTimeline
+{
+    private readonly SortedDictionary<DateTime, List<Event>> _events;
 
-small.IsSubsetOf(a);            // true — every element of small is in a
-small.IsProperSubsetOf(a);      // true — subset AND a has MORE elements
-a.IsSupersetOf(small);          // true — a contains everything in small
-a.Overlaps(b);                  // true — at least one common element
-a.SetEquals(b);                 // false — not exactly the same elements
-```
+    public EventTimeline()
+    {
+        _events = new SortedDictionary<DateTime, List<Event>>();
+    }
 
-> ⚠️ `UnionWith`, `IntersectWith`, `ExceptWith`, and `SymmetricExceptWith` all **modify the original set**. Copy first: `new HashSet<T>(original)`.
+    public void AddEvent(Event evt)
+    {
+        if (!_events.TryGetValue(evt.Timestamp, out var list))
+        {
+            list = new List<Event>();
+            _events[evt.Timestamp] = list;
+        }
+        list.Add(evt);
+    }
 
----
-
-## 📊 Final Comparison: Dictionary vs SortedList vs HashSet vs List
-
-| Aspect | `Dictionary<K,V>` | `SortedList<K,V>` | `SortedDictionary<K,V>` | `HashSet<T>` | `List<T>` |
-|---|---|---|---|---|---|
-| Structure | Hash table | Two sorted arrays | Red-Black tree | Hash table | Dynamic array |
-| Key Lookup | O(1) avg | O(log n) | O(log n) | O(1) avg | O(n) |
-| Insert | O(1) avg | O(n) ← shift | O(log n) | O(1) avg | O(1) amortized |
-| Delete | O(1) avg | O(n) ← shift | O(log n) | O(1) avg | O(n) |
-| Ordered Iteration | ❌ | ✅ sorted | ✅ sorted | ❌ | ✅ insertion order |
-| Index Access (pos) | ❌ | ✅ `Keys[i]` | ❌ | ❌ | ✅ `list[i]` |
-| Duplicates | Keys unique | Keys unique | Keys unique | ❌ unique | ✅ allowed |
-| Set operations | ❌ | ❌ | ❌ | ✅ | ❌ |
-| Best for | Fast lookup | Sorted + positional | Sorted + inserts | Unique + membership | General ordered |
-
-### When to Choose
-
-```
-Dictionary<K,V>       → 95% of key-value needs. Fastest all-around.
-SortedList<K,V>       → Need sorted + Keys[i] positional access + few inserts.
-SortedDictionary<K,V> → Need sorted + frequent inserts (no positional access).
-HashSet<T>            → Uniqueness, O(1) membership, set math.
-List<T>               → Ordered, indexed, duplicates allowed, general purpose.
+    public IEnumerable<Event> GetEventsBetween(DateTime start, DateTime end)
+    {
+        foreach (var (timestamp, events) in _events)
+        {
+            if (timestamp < start) continue;
+            if (timestamp > end) break;
+            
+            foreach (var evt in events)
+                yield return evt;
+        }
+    }
+}
 ```
 
 ---
 
-## 📌 Summary
+## Memory and Performance
 
-> `SortedList` uses two parallel sorted arrays — O(log n) lookup but O(n) insert due to shifting. `Dictionary` uses array-based separate chaining for O(1) average on all operations — but requires correct `GetHashCode`/`Equals` implementations and **immutable keys**. `HashSet` is Dictionary without values — perfect for uniqueness and O(1) membership tests. Never use mutable objects as dictionary or hashset keys.
+### Memory Layout Comparison
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    MEMORY LAYOUT                                   │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Dictionary:                                                   │
+│   ├─ Array of Entry structs (key, value, hash)                │
+│   ├─ Overhead: ~20% unused capacity                            │
+│   ├─ Rehashing occurs when load factor > 0.72                  │
+│   └─ Doubles capacity on resize                              │
+│                                                                  │
+│   HashSet:                                                      │
+│   ├─ Similar to Dictionary (only stores hash + key)            │
+│   ├─ More compact than Dictionary<T, bool>                    │
+│   └─ Same resizing behavior                                     │
+│                                                                  │
+│   SortedList:                                                   │
+│   ├─ Two arrays: keys[] and values[]                           │
+│   ├─ Compact - no unused slots                                │
+│   ├─ Resizes when full                                        │
+│   └─ Insertion requires shifting                              │
+│                                                                  │
+│   SortedDictionary:                                             │
+│   ├─ Tree nodes with references                               │
+│   ├─ More overhead per entry (color, parent, child refs)     │
+│   ├─ No resizing - grows by allocation                       │
+│   └─ Better locality of reference during range queries       │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Best Practices and Pitfalls
+
+### ✅ Best Practices
+
+```csharp
+// 1. Use Dictionary for fast lookups
+var lookup = new Dictionary<int, string>();
+
+// 2. Use HashSet for uniqueness
+var unique = new HashSet<int>();
+
+// 3. Pre-size when count is known
+var dict = new Dictionary<int, string>(1000);
+var set = new HashSet<int>(1000);
+
+// 4. Implement GetHashCode properly
+public override int GetHashCode() => HashCode.Combine(Field1, Field2);
+
+// 5. Use TryGetValue for safe access
+if (dict.TryGetValue(key, out var value)) { }
+
+// 6. Use TryAdd for conditional insertion
+if (dict.TryAdd(key, value)) { /* added */ }
+
+// 7. Use proper Equals with GetHashCode
+public override bool Equals(object? obj) => obj is MyType other && Id == other.Id;
+```
+
+### ❌ Common Pitfalls
+
+```csharp
+// PITFALL 1: Mutable objects as keys
+var dict = new Dictionary<List<int>, string>(); // ❌ Dangerous!
+
+// PITFALL 2: Modifying key while in dictionary
+var key = new { Id = 1 };
+dict[key] = "value";
+key.Id = 2; // ❌ Breaks hash table!
+
+// PITFALL 3: Not overriding Equals and GetHashCode
+public class Person { public int Id { get; set; } }
+// Two Person objects with same Id won't be equal!
+
+// PITFALL 4: Using reference equality for value types
+var dict = new Dictionary<int[], string>();
+dict[new[] { 1, 2 }] = "A";
+dict[new[] { 1, 2 }]; // ❌ Different array, not found!
+
+// PITFALL 5: Not handling missing keys
+dict[key]; // ❌ KeyNotFoundException
+// Use TryGetValue or ContainsKey
+
+// PITFALL 6: Poor hash distribution
+public override int GetHashCode() => 1; // ❌ Everything collides!
+```
+
+---
+
+## Interview Questions
+
+**Q: What's the difference between Dictionary and Hashtable?**> Dictionary is generic (type-safe, no boxing), Hashtable is non-generic. Dictionary is generally preferred in modern C#. Dictionary also maintains insertion order since .NET Core.
+
+**Q: What's the time complexity of Dictionary operations?**> Average case: O(1) for insert, delete, and lookup. Worst case: O(n) if all keys collide. This assumes a good hash function with uniform distribution.
+
+**Q: When should you use SortedDictionary over Dictionary?**> Use SortedDictionary when you need keys maintained in sorted order or need range queries. Dictionary is faster (O(1) vs O(log n)) but doesn't maintain order.
+
+**Q: What's the difference between SortedList and SortedDictionary?**> SortedList uses two arrays (memory efficient, O(n) insert). SortedDictionary uses a Red-Black tree (O(log n) insert, better for frequent modifications). SortedList also supports index access.
+
+**Q: Why must you override GetHashCode when overriding Equals?**> Dictionary and HashSet rely on hash codes to locate items. If two objects are equal (Equals returns true), they must have the same hash code. Violating this breaks hash-based collections.
+
+**Q: What's a hash collision and how is it resolved?**> A collision occurs when two different keys produce the same hash code. .NET resolves collisions using chaining (each bucket can contain a linked list of entries with the same hash).
