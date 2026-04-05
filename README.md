@@ -16,26 +16,26 @@ A deep dive into high-performance programming, asynchronous patterns, and resour
 
 | Module | Documentation |
 | :--- | :--- |
-| **Generics & Delegates** | [Advanced Generics](https://www.google.com/search?q=./Advanced_C%23/mds/01-advanced-generics.md) / [Delegates](https://www.google.com/search?q=./Advanced_C%23/mds/17-delegates.md) |
-| **Asynchronous Patterns** | [Async-Await Deep Dive](https://www.google.com/search?q=./Advanced_C%23/mds/21-async-await-deep-dive.md) / [IAsyncEnumerable](https://www.google.com/search?q=./Advanced_C%23/mds/07_IAsyncEnumerable.md) |
-| **Concurrency & Threading** | [Monitor/Mutex/Semaphore](https://www.google.com/search?q=./Advanced_C%23/mds/08_Monitor_Mutex_Semaphore.md) / [Interlocked](https://www.google.com/search?q=./Advanced_C%23/mds/09_Interlocked.md) / [Thread Pool Starvation](https://www.google.com/search?q=./Advanced_C%23/mds/14_Thread_Pool_Starvation.md) |
-| **Memory & Performance** | [Span & Stack](https://www.google.com/search?q=./Advanced_C%23/mds/19-queue-stack-span.md) / [Concurrent Collections](https://www.google.com/search?q=./Advanced_C%23/mds/13_Concurrent_Collections.md) / [IDisposable](https://www.google.com/search?q=./Advanced_C%23/mds/11_IDisposable_Using.md) |
+| **Generics & Delegates** | [Advanced Generics](./Advanced_C#/mds/01-advanced-generics.md) / [Delegates](./Advanced_C#/mds/17-delegates.md) |
+| **Asynchronous Patterns** | [Async-Await Deep Dive](./Advanced_C#/mds/21-async-await-deep-dive.md) / [IAsyncEnumerable](./Advanced_C#/mds/07_IAsyncEnumerable.md) |
+| **Concurrency & Threading** | [Monitor/Mutex/Semaphore](./Advanced_C#/mds/08_Monitor_Mutex_Semaphore.md) / [Interlocked](./Advanced_C#/mds/09_Interlocked.md) / [Thread Pool Starvation](./Advanced_C#/mds/14_Thread_Pool_Starvation.md) |
+| **Memory & Performance** | [Span & Stack](./Advanced_C#/mds/19-queue-stack-span.md) / [Concurrent Collections](./Advanced_C#/mds/13_Concurrent_Collections.md) / [IDisposable](./Advanced_C#/mds/11_IDisposable_Using.md) |
 
 ## 3\. Data Architecture & LINQ
 
 Focusing on data querying efficiency and robust database design.
 
-  * **LINQ:** [LINQ Deep Dive](https://www.google.com/search?q=./LINQ/mds/linq-deep-dive.md)
-  * **Database Design:** [Normalization](https://www.google.com/search?q=./database/mds/01-database-design-normalization.md) | [Indexing Strategies](https://www.google.com/search?q=./database/mds/05-indexing-strategies.md) | [Advanced Indexes](https://www.google.com/search?q=./database/mds/09-advanced-indexes.md)
-  * **Performance:** [Query Optimization](https://www.google.com/search?q=./database/mds/13-query-optimization.md) | [Locking & Concurrency](https://www.google.com/search?q=./database/mds/08-locking-concurrency.md) | [Execution Plans](https://www.google.com/search?q=./database/mds/10-execution-plans.md)
-  * **Reliability:** [Backup & Recovery](https://www.google.com/search?q=./database/mds/02-backup-recovery.md) | [Data Validation](https://www.google.com/search?q=./database/mds/03-data-validation-constraints.md)
+  * **LINQ:** [LINQ Deep Dive](./LINQ/mds/linq-deep-dive.md)
+  * **Database Design:** [Normalization](./database/mds/01-database-design-normalization.md) | [Indexing Strategies](./database/mds/05-indexing-strategies.md) | [Advanced Indexes](./database/mds/09-advanced-indexes.md)
+  * **Performance:** [Query Optimization](./database/mds/13-query-optimization.md) | [Locking & Concurrency](./database/mds/08-locking-concurrency.md) | [Execution Plans](./database/mds/10-execution-plans.md)
+  * **Reliability:** [Backup & Recovery](./database/mds/02-backup-recovery.md) | [Data Validation](./database/mds/03-data-validation-constraints.md)
 
 ## 4\. Quality Assurance
 
 Modern testing methodologies for enterprise applications.
 
-  * [Unit Testing Fundamentals](https://www.google.com/search?q=./Advanced_C%23/mds/15_Unit_Testing.md)
-  * [Mocking Techniques](https://www.google.com/search?q=./Advanced_C%23/mds/16_Mocking.md)
+  * [Unit Testing Fundamentals](./Advanced_C#/mds/15_Unit_Testing.md)
+  * [Mocking Techniques](./Advanced_C#/mds/16_Mocking.md)
 
 -----
 
