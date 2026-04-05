@@ -1,0 +1,51 @@
+# .NET Backend Engineering: Advanced Deep Dives
+
+A comprehensive technical repository documenting advanced C\# mechanics, .NET internals, and database optimization strategies. This project serves as a structured knowledge base for building scalable, high-performance backend systems.
+
+## 1\. C\# Fundamentals & OOP
+
+Core language mechanics and the foundational pillars of Object-Oriented Programming.
+
+  * **Basics:** [Error Handling](https://www.google.com/search?q=./C%23_Basics/mds/01-error-handling.md) | [Type System](https://www.google.com/search?q=./C%23_Basics/mds/03-type-system.md) | [Memory Management](https://www.google.com/search?q=./C%23_Basics/mds/06-memory.md)
+  * **OOP:** [Encapsulation](https://www.google.com/search?q=./OOP/mds/01-encapsulation.md) | [Abstraction](https://www.google.com/search?q=./OOP/mds/02-abstraction.md) | [Inheritance](https://www.google.com/search?q=./OOP/mds/03-inheritance.md) | [Polymorphism](https://www.google.com/search?q=./OOP/mds/04-polymorphism.md)
+  * **Relationships:** [Class Relationships](https://www.google.com/search?q=./OOP/mds/05-class-relationships.md) | [Interview Questions](https://www.google.com/search?q=./OOP/mds/06-interview-questions.md)
+
+## 2\. Advanced C\# & Concurrency
+
+A deep dive into high-performance programming, asynchronous patterns, and resource management.
+
+| Module | Documentation |
+| :--- | :--- |
+| **Generics & Delegates** | [Advanced Generics](https://www.google.com/search?q=./Advanced_C%23/mds/01-advanced-generics.md) / [Delegates](https://www.google.com/search?q=./Advanced_C%23/mds/17-delegates.md) |
+| **Asynchronous Patterns** | [Async-Await Deep Dive](https://www.google.com/search?q=./Advanced_C%23/mds/21-async-await-deep-dive.md) / [IAsyncEnumerable](https://www.google.com/search?q=./Advanced_C%23/mds/07_IAsyncEnumerable.md) |
+| **Concurrency & Threading** | [Monitor/Mutex/Semaphore](https://www.google.com/search?q=./Advanced_C%23/mds/08_Monitor_Mutex_Semaphore.md) / [Interlocked](https://www.google.com/search?q=./Advanced_C%23/mds/09_Interlocked.md) / [Thread Pool Starvation](https://www.google.com/search?q=./Advanced_C%23/mds/14_Thread_Pool_Starvation.md) |
+| **Memory & Performance** | [Span & Stack](https://www.google.com/search?q=./Advanced_C%23/mds/19-queue-stack-span.md) / [Concurrent Collections](https://www.google.com/search?q=./Advanced_C%23/mds/13_Concurrent_Collections.md) / [IDisposable](https://www.google.com/search?q=./Advanced_C%23/mds/11_IDisposable_Using.md) |
+
+## 3\. Data Architecture & LINQ
+
+Focusing on data querying efficiency and robust database design.
+
+  * **LINQ:** [LINQ Deep Dive](https://www.google.com/search?q=./LINQ/mds/linq-deep-dive.md)
+  * **Database Design:** [Normalization](https://www.google.com/search?q=./database/mds/01-database-design-normalization.md) | [Indexing Strategies](https://www.google.com/search?q=./database/mds/05-indexing-strategies.md) | [Advanced Indexes](https://www.google.com/search?q=./database/mds/09-advanced-indexes.md)
+  * **Performance:** [Query Optimization](https://www.google.com/search?q=./database/mds/13-query-optimization.md) | [Locking & Concurrency](https://www.google.com/search?q=./database/mds/08-locking-concurrency.md) | [Execution Plans](https://www.google.com/search?q=./database/mds/10-execution-plans.md)
+  * **Reliability:** [Backup & Recovery](https://www.google.com/search?q=./database/mds/02-backup-recovery.md) | [Data Validation](https://www.google.com/search?q=./database/mds/03-data-validation-constraints.md)
+
+## 4\. Quality Assurance
+
+Modern testing methodologies for enterprise applications.
+
+  * [Unit Testing Fundamentals](https://www.google.com/search?q=./Advanced_C%23/mds/15_Unit_Testing.md)
+  * [Mocking Techniques](https://www.google.com/search?q=./Advanced_C%23/mds/16_Mocking.md)
+
+-----
+
+### Project Objectives
+
+  * **Under-the-Hood Understanding:** Moving beyond syntax to understand CLR behavior and memory allocation.
+  * **Concurrency Mastery:** Navigating complex threading scenarios and avoiding common pitfalls like deadlocks and race conditions.
+  * **Database Excellence:** Bridging the gap between code and data through optimized SQL and efficient LINQ providers.
+
+-----
+
+**Author:** Ayman Mohamed, .NET Full Stack Engineer  
+**Contributor:** Built with professional guidance from Senior Engineer Abdelrahman
