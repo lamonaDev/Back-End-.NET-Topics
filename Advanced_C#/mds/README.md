@@ -17,18 +17,19 @@ A complete set of professional reference documents covering **Advanced Generics,
 
 ## 📂 Part 2: Threading & Concurrency — Deep Dives
 
-| # | Topic | File | Key Concepts |
-|---|---|---|---|
-| 05 | **Thread.Join()** | [05_Thread_Join.md](./05_Thread_Join.md) | Blocking, thread coordination, timeout, deadlock |
-| 06 | **Parallel.ForEachAsync** | [06_Parallel_ForEachAsync.md](./06_Parallel_ForEachAsync.md) | Async parallelism, MaxDegreeOfParallelism, vs Task.WhenAll |
-| 07 | **IAsyncEnumerable** | [07_IAsyncEnumerable.md](./07_IAsyncEnumerable.md) | Async streaming, `await foreach`, memory efficiency |
-| 08 | **Monitor, Mutex, Semaphore, SemaphoreSlim** | [08_Monitor_Mutex_Semaphore.md](./08_Monitor_Mutex_Semaphore.md) | Synchronization primitives, locking, cross-process |
-| 09 | **Interlocked** | [09_Interlocked.md](./09_Interlocked.md) | Atomic operations, lock-free counters, CAS |
-| 10 | **Async File I/O** | [10_File_IO_Async.md](./10_File_IO_Async.md) | `ReadAllTextAsync`, `StreamReader`, IOCP, async write |
-| 11 | **IDisposable & using** | [11_IDisposable_Using.md](./11_IDisposable_Using.md) | Resource cleanup, using block vs declaration, `await using` |
-| 12 | **System.Threading.Channels** | [12_Channels.md](./12_Channels.md) | Producer-consumer, bounded/unbounded, backpressure |
-| 13 | **Concurrent Collections** | [13_Concurrent_Collections.md](./13_Concurrent_Collections.md) | ConcurrentDictionary, ConcurrentBag, ConcurrentQueue |
-| 14 | **Thread Pool Starvation** | [14_Thread_Pool_Starvation.md](./14_Thread_Pool_Starvation.md) | Blocking anti-patterns, async all the way, LongRunning |
+| #  | Topic                                        | File | Key Concepts                                                |
+|----|----------------------------------------------|---|-------------------------------------------------------------|
+| 05 | **Async/Await**                              | [21-async-await-deep-dive.md](./21-async-await-deep-dive.md) | Async Programming                                           |
+| 06 | **Parallel.ForEachAsync**                    | [06_Parallel_ForEachAsync.md](./06_Parallel_ForEachAsync.md) | Async parallelism, MaxDegreeOfParallelism, vs Task.WhenAll  |
+| 07 | **IAsyncEnumerable**                         | [07_IAsyncEnumerable.md](./07_IAsyncEnumerable.md) | Async streaming, `await foreach`, memory efficiency         |
+| 08 | **Monitor, Mutex, Semaphore, SemaphoreSlim** | [08_Monitor_Mutex_Semaphore.md](./08_Monitor_Mutex_Semaphore.md) | Synchronization primitives, locking, cross-process          |
+| 09 | **Interlocked**                              | [09_Interlocked.md](./09_Interlocked.md) | Atomic operations, lock-free counters, CAS                  |
+| 10 | **Async File I/O**                           | [10_File_IO_Async.md](./10_File_IO_Async.md) | `ReadAllTextAsync`, `StreamReader`, IOCP, async write       |
+| 11 | **IDisposable & using**                      | [11_IDisposable_Using.md](./11_IDisposable_Using.md) | Resource cleanup, using block vs declaration, `await using` |
+| 12 | **System.Threading.Channels**                | [12_Channels.md](./12_Channels.md) | Producer-consumer, bounded/unbounded, backpressure          |
+| 13 | **Concurrent Collections**                   | [13_Concurrent_Collections.md](./13_Concurrent_Collections.md) | ConcurrentDictionary, ConcurrentBag, ConcurrentQueue        |
+| 14 | **Thread Pool Starvation**                   | [14_Thread_Pool_Starvation.md](./14_Thread_Pool_Starvation.md) | Blocking anti-patterns, async all the way, LongRunning      |
+| 15 | **Thread.Join()**                            | [05_Thread_Join.md](./05_Thread_Join.md) | Blocking, thread coordination, timeout, deadlock            |
 
 ---
 
