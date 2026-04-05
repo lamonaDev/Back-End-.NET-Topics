@@ -16,10 +16,10 @@ A deep dive into high-performance programming, asynchronous patterns, and resour
 
 | Module | Documentation |
 | :--- | :--- |
-| **Generics & Delegates** | [Advanced Generics](./Advanced_C#/mds/01-advanced-generics.md) / [Delegates](./Advanced_C#/mds/17-delegates.md) |
-| **Asynchronous Patterns** | [Async-Await Deep Dive](./Advanced_C#/mds/21-async-await-deep-dive.md) / [IAsyncEnumerable](./Advanced_C#/mds/07_IAsyncEnumerable.md) |
-| **Concurrency & Threading** | [Monitor/Mutex/Semaphore](./Advanced_C#/mds/08_Monitor_Mutex_Semaphore.md) / [Interlocked](./Advanced_C#/mds/09_Interlocked.md) / [Thread Pool Starvation](./Advanced_C#/mds/14_Thread_Pool_Starvation.md) |
-| **Memory & Performance** | [Span & Stack](./Advanced_C#/mds/19-queue-stack-span.md) / [Concurrent Collections](./Advanced_C#/mds/13_Concurrent_Collections.md) / [IDisposable](./Advanced_C#/mds/11_IDisposable_Using.md) |
+| **Generics & Delegates** | [Advanced Generics](./Advanced_C%23/mds/01-advanced-generics.md) / [Delegates](./Advanced_C%23/mds/17-delegates.md) |
+| **Asynchronous Patterns** | [Async-Await Deep Dive](./Advanced_C%23/mds/21-async-await-deep-dive.md) / [IAsyncEnumerable](./Advanced_C%23/mds/07_IAsyncEnumerable.md) |
+| **Concurrency & Threading** | [Monitor/Mutex/Semaphore](./Advanced_C%23/mds/08_Monitor_Mutex_Semaphore.md) / [Interlocked](./Advanced_C%23/mds/09_Interlocked.md) / [Thread Pool Starvation](./Advanced_C%23/mds/14_Thread_Pool_Starvation.md) |
+| **Memory & Performance** | [Span & Stack](./Advanced_C%23/mds/19-queue-stack-span.md) / [Concurrent Collections](./Advanced_C%23/mds/13_Concurrent_Collections.md) / [IDisposable](./Advanced_C%23/mds/11_IDisposable_Using.md) |
 
 ## 3\. Data Architecture & LINQ
 
@@ -34,8 +34,8 @@ Focusing on data querying efficiency and robust database design.
 
 Modern testing methodologies for enterprise applications.
 
-  * [Unit Testing Fundamentals](./Advanced_C#/mds/15_Unit_Testing.md)
-  * [Mocking Techniques](./Advanced_C#/mds/16_Mocking.md)
+  * [Unit Testing Fundamentals](./Advanced_C%23/mds/15_Unit_Testing.md)
+  * [Mocking Techniques](./Advanced_C%23/mds/16_Mocking.md)
 
 -----
 
