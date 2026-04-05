@@ -6,7 +6,7 @@ A comprehensive technical repository documenting advanced C\# mechanics, .NET in
 
 Core language mechanics and the foundational pillars of Object-Oriented Programming.
 
-  * **Basics:** [Error Handling](https://www.google.com/search?q=./C%23_Basics/mds/01-error-handling.md) | [Type System](https://www.google.com/search?q=./C%23_Basics/mds/03-type-system.md) | [Memory Management](https://www.google.com/search?q=./C%23_Basics/mds/06-memory.md)
+  * **Basics:** [Error Handling](./C%23_Basics/mds/01-error-handling.md) | [Type System](https://www.google.com/search?q=./C%23_Basics/mds/03-type-system.md) | [Memory Management](https://www.google.com/search?q=./C%23_Basics/mds/06-memory.md)
   * **OOP:** [Encapsulation](https://www.google.com/search?q=./OOP/mds/01-encapsulation.md) | [Abstraction](https://www.google.com/search?q=./OOP/mds/02-abstraction.md) | [Inheritance](https://www.google.com/search?q=./OOP/mds/03-inheritance.md) | [Polymorphism](https://www.google.com/search?q=./OOP/mds/04-polymorphism.md)
   * **Relationships:** [Class Relationships](https://www.google.com/search?q=./OOP/mds/05-class-relationships.md) | [Interview Questions](https://www.google.com/search?q=./OOP/mds/06-interview-questions.md)
 
