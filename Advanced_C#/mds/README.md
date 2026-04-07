@@ -46,10 +46,10 @@ A complete set of professional reference documents covering **Advanced Generics,
 
 | # | Topic | File | Key Concepts |
 |---|---|---|---|
-| 17 | **Delegates — Complete Guide** | [15-delegates.md](./15-delegates.md) | Delegate declaration, multicast, closures, Action/Func/Predicate, lambdas, IL internals |
-| 18 | **List\<T\> — Complete Deep Dive** | [16-list-deep-dive.md](./16-list-deep-dive.md) | Arrays vs collections, interface hierarchy, internals, capacity doubling, complexity |
-| 19 | **Queue, Stack, Span\<T\> & Collections** | [17-queue-stack-span.md](./17-queue-stack-span.md) | FIFO/LIFO, circular array, Span zero-copy, full collection comparison |
-| 20 | **SortedList, Dictionary & HashSet** | [18-sortedlist-dictionary-hashset.md](./18-sortedlist-dictionary-hashset.md) | Hashing theory, collision strategies, GetHashCode+Equals contract, internals |
+| 17 | **Delegates — Complete Guide** | [17-delegates.md](./17-delegates.md) | Delegate declaration, multicast, closures, Action/Func/Predicate, lambdas, IL internals |
+| 18 | **List\<T\> — Complete Deep Dive** | [18-list-deep-dive.md](./18-list-deep-dive.md) | Arrays vs collections, interface hierarchy, internals, capacity doubling, complexity |
+| 19 | **Queue, Stack, Span\<T\> & Collections** | [19-queue-stack-span.md](./19-queue-stack-span.md) | FIFO/LIFO, circular array, Span zero-copy, full collection comparison |
+| 20 | **SortedList, Dictionary & HashSet** | [20-sortedlist-dictionary-hashset.md](./20-sortedlist-dictionary-hashset.md) | Hashing theory, collision strategies, GetHashCode+Equals contract, internals |
 
 ---
 
@@ -67,15 +67,15 @@ A complete set of professional reference documents covering **Advanced Generics,
 | `using` block vs `using` declaration | [11_IDisposable_Using.md](./11_IDisposable_Using.md) |
 | `Task` vs `Thread` vs `ThreadPool` | [03-threading-concurrency-async.md](./03-threading-concurrency-async.md) |
 | `Span<T>` vs `Memory<T>` | [04-performance-memory.md](./04-performance-memory.md) |
-| `Action` vs `Func` vs `Predicate` | [15-delegates.md](./15-delegates.md) |
-| `Delegate` vs `Interface` | [15-delegates.md](./15-delegates.md) |
-| `Array` vs `List<T>` | [16-list-deep-dive.md](./16-list-deep-dive.md) |
-| `Generic` vs `Non-Generic` collections | [16-list-deep-dive.md](./16-list-deep-dive.md) |
-| `Queue<T>` vs `Stack<T>` | [17-queue-stack-span.md](./17-queue-stack-span.md) |
-| `Span<T>` vs LINQ slicing | [17-queue-stack-span.md](./17-queue-stack-span.md) |
-| `Dictionary` vs `SortedList` vs `SortedDictionary` | [18-sortedlist-dictionary-hashset.md](./18-sortedlist-dictionary-hashset.md) |
-| `List.Contains` O(n) vs `HashSet.Contains` O(1) | [18-sortedlist-dictionary-hashset.md](./18-sortedlist-dictionary-hashset.md) |
-| Linear Search vs Binary Search vs Hashing | [18-sortedlist-dictionary-hashset.md](./18-sortedlist-dictionary-hashset.md) |
+| `Action` vs `Func` vs `Predicate` | [17-delegates.md](./17-delegates.md) |
+| `Delegate` vs `Interface` | [17-delegates.md](./17-delegates.md) |
+| `Array` vs `List<T>` | [18-list-deep-dive.md](./18-list-deep-dive.md) |
+| `Generic` vs `Non-Generic` collections | [18-list-deep-dive.md](./18-list-deep-dive.md) |
+| `Queue<T>` vs `Stack<T>` | [19-queue-stack-span.md](./19-queue-stack-span.md) |
+| `Span<T>` vs LINQ slicing | [19-queue-stack-span.md](./19-queue-stack-span.md) |
+| `Dictionary` vs `SortedList` vs `SortedDictionary` | [20-sortedlist-dictionary-hashset.md](./20-sortedlist-dictionary-hashset.md) |
+| `List.Contains` O(n) vs `HashSet.Contains` O(1) | [20-sortedlist-dictionary-hashset.md](./20-sortedlist-dictionary-hashset.md) |
+| Linear Search vs Binary Search vs Hashing | [20-sortedlist-dictionary-hashset.md](./20-sortedlist-dictionary-hashset.md) |
 
 ---
 
