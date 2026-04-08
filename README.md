@@ -43,6 +43,10 @@ A comprehensive technical repository documenting advanced C# mechanics, .NET int
   - [7.1 Unit Testing](#71-unit-testing)
   - [7.2 Mocking](#72-mocking)
 - [8. Project Overview](#8-project-overview)
+- [6. Quality Assurance](#6-quality-assurance)
+  - [6.1 Unit Testing](#61-unit-testing)
+  - [6.2 Mocking](#62-mocking)
+- [7. Project Overview](#7-project-overview)
 
 ---
 
@@ -570,6 +574,11 @@ Connection pool mechanics, exhaustion causes and detection, long-running query a
 Modern testing methodologies for enterprise applications.
 
 ### 7.1 Unit Testing
+## 6. Quality Assurance
+
+Modern testing methodologies for enterprise applications.
+
+### 6.1 Unit Testing
 | Document | Path |
 |----------|------|
 | [Unit Testing Fundamentals](./Advanced_C%23/mds/15_Unit_Testing.md) | `Advanced_C#/mds/15_Unit_Testing.md` |
@@ -579,6 +588,7 @@ xUnit, NUnit, and MSTest frameworks, test organization, Arrange-Act-Assert patte
 **[Back to Top](#table-of-contents)**
 
 ### 7.2 Mocking
+### 6.2 Mocking
 | Document | Path |
 |----------|------|
 | [Mocking Techniques](./Advanced_C%23/mds/16_Mocking.md) | `Advanced_C#/mds/16_Mocking.md` |
@@ -590,6 +600,7 @@ Moq and NSubstitute frameworks, dependency injection for testability, test doubl
 ---
 
 ## 8. Project Overview
+## 7. Project Overview
 
 ### Learning Paths
 
@@ -615,6 +626,23 @@ C# Fundamentals → OOP → Database Design → EF Core (Migrations, DbContext, 
 - **C# & .NET Topics:** 30 documents
 - **Database Topics:** 13 documents
 - **EF Core Topics:** 6 documents
+C# Fundamentals → OOP Pillars → LINQ → Database Design & Normalization
+
+**Intermediate Path:**  
+Advanced Generics → Delegates → Async/Await Deep Dive → Concurrent Collections → Indexing Strategies
+
+**Expert Path:**  
+Thread Pool Starvation → Interlocked → Span/Memory → Execution Plans → Query Optimization
+
+**Database Specialist Path:**  
+Normalization → Indexing Strategies → Query Optimization → Locking & Concurrency → Backup & Recovery
+
+### Repository Statistics
+
+- **Total Documents:** 50+ technical deep-dives
+- **Primary Categories:** 6 major domains
+- **C# & .NET Topics:** 30 documents
+- **Database Topics:** 13 documents
 - **Testing Topics:** 2 documents
 
 ### Project Objectives
