@@ -32,6 +32,17 @@ A comprehensive technical repository documenting advanced C# mechanics, .NET int
   - [5.2 Performance & Optimization](#52-performance--optimization)
   - [5.3 Concurrency & Reliability](#53-concurrency--reliability)
   - [5.4 Advanced Topics](#54-advanced-topics)
+- [6. EF Core](#6-ef-core)
+  - [6.1 Micro ORM vs Full ORM](#61-micro-orm-vs-full-orm)
+  - [6.2 Expression Trees](#62-expression-trees)
+  - [6.3 Migrations vs Scaffolding](#63-migrations-vs-scaffolding)
+  - [6.4 DbContext Deep Dive](#64-dbcontext-deep-dive)
+  - [6.5 Dependency Injection](#65-dependency-injection)
+  - [6.6 Connection Pool Exhaustion](#66-connection-pool-exhaustion)
+- [7. Quality Assurance](#7-quality-assurance)
+  - [7.1 Unit Testing](#71-unit-testing)
+  - [7.2 Mocking](#72-mocking)
+- [8. Project Overview](#8-project-overview)
 - [6. Quality Assurance](#6-quality-assurance)
   - [6.1 Unit Testing](#61-unit-testing)
   - [6.2 Mocking](#62-mocking)
@@ -498,6 +509,71 @@ Document databases (MongoDB), key-value stores (Redis), column-family stores (Ca
 
 ---
 
+## 6. EF Core
+
+Entity Framework Core deep dives covering ORM patterns, expression trees, migrations, DbContext internals, and performance optimization.
+
+### 6.1 Micro ORM vs Full ORM
+| Document | Path |
+|----------|------|
+| [Micro ORM vs Full ORM](./EFCore/mds/01-micro-orm-vs-full-orm.md) | `EFCore/mds/01-micro-orm-vs-full-orm.md` |
+
+Comprehensive comparison between Micro ORMs (Dapper) and Full ORMs (EF Core). Architecture differences, performance characteristics, decision matrix, and hybrid approach recommendations with real-world e-commerce examples.
+
+**[Back to Top](#table-of-contents)**
+
+### 6.2 Expression Trees
+| Document | Path |
+|----------|------|
+| [Expression Trees](./EFCore/mds/02-expression-trees.md) | `EFCore/mds/02-expression-trees.md` |
+
+Expression tree structure and traversal, LINQ-to-SQL translation pipeline, dynamic query builder implementation, specification pattern, and client vs server evaluation pitfalls.
+
+**[Back to Top](#table-of-contents)**
+
+### 6.3 Migrations vs Scaffolding
+| Document | Path |
+|----------|------|
+| [Migrations vs Scaffolding](./EFCore/mds/03-migrations-vs-scaffolding.md) | `EFCore/mds/03-migrations-vs-scaffolding.md` |
+
+Code-first migrations vs database-first scaffolding workflows, migration file structure, team development strategies, merge conflict resolution, and decision framework for approach selection.
+
+**[Back to Top](#table-of-contents)**
+
+### 6.4 DbContext Deep Dive
+| Document | Path |
+|----------|------|
+| [DbContext Deep Dive](./EFCore/mds/04-dbcontext-deep-dive.md) | `EFCore/mds/04-dbcontext-deep-dive.md` |
+
+DbContext lifecycle management, configuration architecture, change tracking mechanisms, multi-tenant SaaS implementation, performance optimization with context pooling and compiled queries.
+
+**[Back to Top](#table-of-contents)**
+
+### 6.5 Dependency Injection
+| Document | Path |
+|----------|------|
+| [Dependency Injection](./EFCore/mds/05-dependency-injection.md) | `EFCore/mds/05-dependency-injection.md` |
+
+DI registration patterns, repository and Unit of Work patterns, enterprise application architecture, multi-context registration, factory pattern for background services, and integration testing setup.
+
+**[Back to Top](#table-of-contents)**
+
+### 6.6 Connection Pool Exhaustion
+| Document | Path |
+|----------|------|
+| [Connection Pool Exhaustion](./EFCore/mds/06-connection-pooling.md) | `EFCore/mds/06-connection-pooling.md` |
+
+Connection pool mechanics, exhaustion causes and detection, long-running query analysis, mitigation strategies, circuit breaker pattern, and monitoring with health checks and metrics collection.
+
+**[Back to Top](#table-of-contents)**
+
+---
+
+## 7. Quality Assurance
+
+Modern testing methodologies for enterprise applications.
+
+### 7.1 Unit Testing
 ## 6. Quality Assurance
 
 Modern testing methodologies for enterprise applications.
@@ -511,6 +587,7 @@ xUnit, NUnit, and MSTest frameworks, test organization, Arrange-Act-Assert patte
 
 **[Back to Top](#table-of-contents)**
 
+### 7.2 Mocking
 ### 6.2 Mocking
 | Document | Path |
 |----------|------|
@@ -522,11 +599,33 @@ Moq and NSubstitute frameworks, dependency injection for testability, test doubl
 
 ---
 
+## 8. Project Overview
 ## 7. Project Overview
 
 ### Learning Paths
 
 **Beginner Path:**  
+C# Fundamentals → OOP Pillars → LINQ → Database Design & Normalization → EF Core Migrations
+
+**Intermediate Path:**  
+Advanced Generics → Delegates → Async/Await Deep Dive → Concurrent Collections → EF Core DbContext → Indexing Strategies
+
+**Expert Path:**  
+Thread Pool Starvation → Interlocked → Span/Memory → Execution Plans → EF Core Connection Pooling → Query Optimization
+
+**Database Specialist Path:**  
+Normalization → Indexing Strategies → Query Optimization → Locking & Concurrency → Backup & Recovery → EF Core Performance
+
+**Full Stack .NET Path:**  
+C# Fundamentals → OOP → Database Design → EF Core (Migrations, DbContext, DI) → Async/Await → Testing
+
+### Repository Statistics
+
+- **Total Documents:** 56+ technical deep-dives
+- **Primary Categories:** 7 major domains
+- **C# & .NET Topics:** 30 documents
+- **Database Topics:** 13 documents
+- **EF Core Topics:** 6 documents
 C# Fundamentals → OOP Pillars → LINQ → Database Design & Normalization
 
 **Intermediate Path:**  
