@@ -1,51 +1,568 @@
 # .NET Backend Engineering: Advanced Deep Dives
 
-A comprehensive technical repository documenting advanced C\# mechanics, .NET internals, and database optimization strategies. This project serves as a structured knowledge base for building scalable, high-performance backend systems.
+A comprehensive technical repository documenting advanced C# mechanics, .NET internals, and database optimization strategies. This project serves as a structured knowledge base for building scalable, high-performance backend systems.
 
-## 1\. C\# Fundamentals & OOP
+---
 
-Core language mechanics and the foundational pillars of Object-Oriented Programming.
+## Table of Contents
 
-  * **Basics:** [Error Handling](./C%23_Basics/mds/01-error-handling.md) | [Type System](./C%23_Basics/mds/03-type-system.md) | [Memory Management](./C%23_Basics/mds/06-memory.md)
-  * **OOP:** [Encapsulation](./OOP/mds/01-encapsulation.md) | [Abstraction](./OOP/mds/02-abstraction.md) | [Inheritance](./OOP/mds/03-inheritance.md) | [Polymorphism](./OOP/mds/04-polymorphism.md)
-  * **Relationships:** [Class Relationships](./OOP/mds/05-class-relationships.md) | [Interview Questions](./OOP/mds/06-interview-questions.md)
+- [1. C# Fundamentals](#1-c-fundamentals)
+  - [1.1 Error Handling](#11-error-handling)
+  - [1.2 Language Fundamentals](#12-language-fundamentals)
+  - [1.3 Type System](#13-type-system)
+  - [1.4 Strings](#14-strings)
+  - [1.5 DateTime](#15-datetime)
+  - [1.6 Memory Management](#16-memory-management)
+  - [1.7 Best Practices](#17-best-practices)
+- [2. Object-Oriented Programming](#2-object-oriented-programming)
+  - [2.1 Encapsulation](#21-encapsulation)
+  - [2.2 Abstraction](#22-abstraction)
+  - [2.3 Inheritance](#23-inheritance)
+  - [2.4 Polymorphism](#24-polymorphism)
+  - [2.5 Class Relationships](#25-class-relationships)
+  - [2.6 Interview Questions](#26-interview-questions)
+- [3. Advanced C# & Concurrency](#3-advanced-c--concurrency)
+  - [3.1 Language Features](#31-language-features)
+  - [3.2 Asynchronous Programming](#32-asynchronous-programming)
+  - [3.3 Threading & Synchronization](#33-threading--synchronization)
+  - [3.4 Memory & Performance](#34-memory--performance)
+- [4. LINQ](#4-linq)
+- [5. Database Architecture](#5-database-architecture)
+  - [5.1 Design & Structure](#51-design--structure)
+  - [5.2 Performance & Optimization](#52-performance--optimization)
+  - [5.3 Concurrency & Reliability](#53-concurrency--reliability)
+  - [5.4 Advanced Topics](#54-advanced-topics)
+- [6. Quality Assurance](#6-quality-assurance)
+  - [6.1 Unit Testing](#61-unit-testing)
+  - [6.2 Mocking](#62-mocking)
+- [7. Project Overview](#7-project-overview)
 
-## 2\. Advanced C\# & Concurrency
+---
 
-A deep dive into high-performance programming, asynchronous patterns, and resource management.
+## 1. C# Fundamentals
 
-| Module | Documentation |
-| :--- | :--- |
-| **Generics & Delegates** | [Advanced Generics](./Advanced_C%23/mds/01-advanced-generics.md) / [Delegates](./Advanced_C%23/mds/17-delegates.md) |
-| **Asynchronous Patterns** | [Async-Await Deep Dive](./Advanced_C%23/mds/21-async-await-deep-dive.md) / [IAsyncEnumerable](./Advanced_C%23/mds/07_IAsyncEnumerable.md) |
-| **Concurrency & Threading** | [Monitor/Mutex/Semaphore](./Advanced_C%23/mds/08_Monitor_Mutex_Semaphore.md) / [Interlocked](./Advanced_C%23/mds/09_Interlocked.md) / [Thread Pool Starvation](./Advanced_C%23/mds/14_Thread_Pool_Starvation.md) |
-| **Memory & Performance** | [Span & Stack](./Advanced_C%23/mds/19-queue-stack-span.md) / [Concurrent Collections](./Advanced_C%23/mds/13_Concurrent_Collections.md) / [IDisposable](./Advanced_C%23/mds/11_IDisposable_Using.md) |
+Core language mechanics and foundational concepts.
 
-## 3\. Data Architecture & LINQ
+### 1.1 Error Handling
+| Document | Path |
+|----------|------|
+| [Error Handling](./C%23_Basics/mds/01-error-handling.md) | `C#_Basics/mds/01-error-handling.md` |
 
-Focusing on data querying efficiency and robust database design.
+Exception handling patterns, try-catch-finally blocks, custom exception types, and defensive programming techniques.
 
-  * **LINQ:** [LINQ Deep Dive](./LINQ/mds/linq-deep-dive.md)
-  * **Database Design:** [Normalization](./database/mds/01-database-design-normalization.md) | [Indexing Strategies](./database/mds/05-indexing-strategies.md) | [Advanced Indexes](./database/mds/09-advanced-indexes.md)
-  * **Performance:** [Query Optimization](./database/mds/13-query-optimization.md) | [Locking & Concurrency](./database/mds/08-locking-concurrency.md) | [Execution Plans](./database/mds/10-execution-plans.md)
-  * **Reliability:** [Backup & Recovery](./database/mds/02-backup-recovery.md) | [Data Validation](./database/mds/03-data-validation-constraints.md)
+**[Back to Top](#table-of-contents)**
 
-## 4\. Quality Assurance
+### 1.2 Language Fundamentals
+| Document | Path |
+|----------|------|
+| [Language Fundamentals](./C%23_Basics/mds/02-language-fundamentals.md) | `C#_Basics/mds/02-language-fundamentals.md` |
+
+Core syntax, operators, control flow structures, and statement-level constructs.
+
+**[Back to Top](#table-of-contents)**
+
+### 1.3 Type System
+| Document | Path |
+|----------|------|
+| [Type System](./C%23_Basics/mds/03-type-system.md) | `C#_Basics/mds/03-type-system.md` |
+
+Value types vs reference types, boxing and unboxing operations, nullable value types, type inference, and the unified type system.
+
+**[Back to Top](#table-of-contents)**
+
+### 1.4 Strings
+| Document | Path |
+|----------|------|
+| [Strings](./C%23_Basics/mds/04-strings.md) | `C#_Basics/mds/04-strings.md` |
+
+String manipulation, StringBuilder for performance, string interpolation, formatting options, and encoding considerations.
+
+**[Back to Top](#table-of-contents)**
+
+### 1.5 DateTime
+| Document | Path |
+|----------|------|
+| [DateTime](./C%23_Basics/mds/05-datetime.md) | `C#_Basics/mds/05-datetime.md` |
+
+Date and time handling, TimeZoneInfo, DateTimeOffset for timezone-aware operations, parsing, and formatting strategies.
+
+**[Back to Top](#table-of-contents)**
+
+### 1.6 Memory Management
+| Document | Path |
+|----------|------|
+| [Memory Management](./C%23_Basics/mds/06-memory.md) | `C#_Basics/mds/06-memory.md` |
+
+Stack vs heap allocation, garbage collection fundamentals, object lifetime management, and memory leak detection.
+
+**[Back to Top](#table-of-contents)**
+
+### 1.7 Best Practices
+| Document | Path |
+|----------|------|
+| [Best Practices](./C%23_Basics/mds/07-best-practices.md) | `C#_Basics/mds/07-best-practices.md` |
+
+Coding standards, naming conventions, maintainable code patterns, and professional development guidelines.
+
+**[Back to Top](#table-of-contents)**
+
+---
+
+## 2. Object-Oriented Programming
+
+The four pillars of OOP and advanced object-oriented design concepts.
+
+### 2.1 Encapsulation
+| Document | Path |
+|----------|------|
+| [Encapsulation](./OOP/mds/01-encapsulation.md) | `OOP/mds/01-encapsulation.md` |
+
+Access modifiers, properties with getters and setters, data hiding principles, immutability patterns, and information hiding.
+
+**[Back to Top](#table-of-contents)**
+
+### 2.2 Abstraction
+| Document | Path |
+|----------|------|
+| [Abstraction](./OOP/mds/02-abstraction.md) | `OOP/mds/02-abstraction.md` |
+
+Abstract classes, interfaces, hiding implementation complexity, and defining contracts for components.
+
+**[Back to Top](#table-of-contents)**
+
+### 2.3 Inheritance
+| Document | Path |
+|----------|------|
+| [Inheritance](./OOP/mds/03-inheritance.md) | `OOP/mds/03-inheritance.md` |
+
+Base and derived classes, method overriding, inheritance hierarchies, and the Liskov Substitution Principle.
+
+**[Back to Top](#table-of-contents)**
+
+### 2.4 Polymorphism
+| Document | Path |
+|----------|------|
+| [Polymorphism](./OOP/mds/04-polymorphism.md) | `OOP/mds/04-polymorphism.md` |
+
+Method overloading, method overriding, runtime polymorphism (virtual/override), compile-time polymorphism, and dynamic dispatch.
+
+**[Back to Top](#table-of-contents)**
+
+### 2.5 Class Relationships
+| Document | Path |
+|----------|------|
+| [Class Relationships](./OOP/mds/05-class-relationships.md) | `OOP/mds/05-class-relationships.md` |
+
+Association, aggregation, composition, dependency injection, and understanding coupling vs cohesion.
+
+**[Back to Top](#table-of-contents)**
+
+### 2.6 Interview Questions
+| Document | Path |
+|----------|------|
+| [Interview Questions](./OOP/mds/06-interview-questions.md) | `OOP/mds/06-interview-questions.md` |
+
+Common OOP interview questions and answers with detailed explanations and code examples.
+
+**[Back to Top](#table-of-contents)**
+
+---
+
+## 3. Advanced C# & Concurrency
+
+High-performance programming, asynchronous patterns, threading, and resource management.
+
+### 3.1 Language Features
+
+#### Advanced Generics
+| Document | Path |
+|----------|------|
+| [Advanced Generics](./Advanced_C%23/mds/01-advanced-generics.md) | `Advanced_C#/mds/01-advanced-generics.md` |
+
+Generic constraints (where clauses), covariance and contravariance, generic methods, performance considerations, and type parameter patterns.
+
+**[Back to Top](#table-of-contents)**
+
+#### Events & Observer Pattern
+| Document | Path |
+|----------|------|
+| [Events & Observer Pattern](./Advanced_C%23/mds/02-events-observer-pattern.md) | `Advanced_C#/mds/02-events-observer-pattern.md` |
+
+Event handling mechanisms, the Observer design pattern, event-driven architecture, and weak event patterns.
+
+**[Back to Top](#table-of-contents)**
+
+#### Delegates
+| Document | Path |
+|----------|------|
+| [Delegates](./Advanced_C%23/mds/17-delegates.md) | `Advanced_C#/mds/17-delegates.md` |
+
+Func, Action, and Predicate delegates, anonymous methods, lambda expressions, multicast delegates, and closure captures.
+
+**[Back to Top](#table-of-contents)**
+
+### 3.2 Asynchronous Programming
+
+#### Threading & Concurrency
+| Document | Path |
+|----------|------|
+| [Threading & Concurrency](./Advanced_C%23/mds/03-threading-concurrency-async.md) | `Advanced_C#/mds/03-threading-concurrency-async.md` |
+
+Thread lifecycle, Task-based Asynchronous Pattern (TAP), synchronization contexts, and async/await fundamentals.
+
+**[Back to Top](#table-of-contents)**
+
+#### IAsyncEnumerable
+| Document | Path |
+|----------|------|
+| [IAsyncEnumerable](./Advanced_C%23/mds/07_IAsyncEnumerable.md) | `Advanced_C#/mds/07_IAsyncEnumerable.md` |
+
+Async streams, yield return in async contexts, consuming async enumerables, and memory-efficient streaming.
+
+**[Back to Top](#table-of-contents)**
+
+#### Async/Await Deep Dive
+| Document | Path |
+|----------|------|
+| [Async/Await Deep Dive](./Advanced_C%23/mds/21-async-await-deep-dive.md) | `Advanced_C#/mds/21-async-await-deep-dive.md` |
+
+Compiler-generated state machines, ConfigureAwait behavior, async best practices, exception handling in async code, and value tasks.
+
+**[Back to Top](#table-of-contents)**
+
+#### Parallel.ForEachAsync
+| Document | Path |
+|----------|------|
+| [Parallel.ForEachAsync](./Advanced_C%23/mds/06_Parallel_ForEachAsync.md) | `Advanced_C#/mds/06_Parallel_ForEachAsync.md` |
+
+Parallel async processing, degree of parallelism control, throttling strategies, and batch processing patterns.
+
+**[Back to Top](#table-of-contents)**
+
+#### File I/O Async
+| Document | Path |
+|----------|------|
+| [File I/O Async](./Advanced_C%23/mds/10_File_IO_Async.md) | `Advanced_C#/mds/10_File_IO_Async.md` |
+
+Asynchronous file operations, buffering strategies, FileStream options, and I/O completion ports.
+
+**[Back to Top](#table-of-contents)**
+
+#### Channels
+| Document | Path |
+|----------|------|
+| [Channels](./Advanced_C%23/mds/12_Channels.md) | `Advanced_C#/mds/12_Channels.md` |
+
+Producer-consumer patterns, bounded and unbounded channels, ChannelReader/ChannelWriter, and backpressure handling.
+
+**[Back to Top](#table-of-contents)**
+
+### 3.3 Threading & Synchronization
+
+#### Thread.Join
+| Document | Path |
+|----------|------|
+| [Thread.Join](./Advanced_C%23/mds/05_Thread_Join.md) | `Advanced_C#/mds/05_Thread_Join.md` |
+
+Thread coordination mechanisms, waiting for thread completion, timeout handling, and thread synchronization primitives.
+
+**[Back to Top](#table-of-contents)**
+
+#### Monitor, Mutex, Semaphore
+| Document | Path |
+|----------|------|
+| [Monitor, Mutex, Semaphore](./Advanced_C%23/mds/08_Monitor_Mutex_Semaphore.md) | `Advanced_C#/mds/08_Monitor_Mutex_Semaphore.md` |
+
+Lock statements (Monitor.Enter/Exit), Mutex for cross-process synchronization, Semaphore and SemaphoreSlim for resource limiting.
+
+**[Back to Top](#table-of-contents)**
+
+#### Interlocked
+| Document | Path |
+|----------|------|
+| [Interlocked](./Advanced_C%23/mds/09_Interlocked.md) | `Advanced_C#/mds/09_Interlocked.md` |
+
+Atomic operations, lock-free programming, CompareExchange patterns, and memory barrier semantics.
+
+**[Back to Top](#table-of-contents)**
+
+#### Thread Pool Starvation
+| Document | Path |
+|----------|------|
+| [Thread Pool Starvation](./Advanced_C%23/mds/14_Thread_Pool_Starvation.md) | `Advanced_C#/mds/14_Thread_Pool_Starvation.md` |
+
+Detection of thread pool exhaustion, prevention strategies, min/max thread configuration, and avoiding同步 over async.
+
+**[Back to Top](#table-of-contents)**
+
+### 3.4 Memory & Performance
+
+#### Performance & Memory
+| Document | Path |
+|----------|------|
+| [Performance & Memory](./Advanced_C%23/mds/04-performance-memory.md) | `Advanced_C#/mds/04-performance-memory.md` |
+
+Profiling techniques, memory diagnostics, performance counters, BenchmarkDotNet usage, and optimization strategies.
+
+**[Back to Top](#table-of-contents)**
+
+#### Queue, Stack, Span
+| Document | Path |
+|----------|------|
+| [Queue, Stack, Span](./Advanced_C%23/mds/19-queue-stack-span.md) | `Advanced_C#/mds/19-queue-stack-span.md` |
+
+Span<T> and Memory<T> for stack-safe buffers, stackalloc, ArrayPool<T>, and low-allocation patterns.
+
+**[Back to Top](#table-of-contents)**
+
+#### Concurrent Collections
+| Document | Path |
+|----------|------|
+| [Concurrent Collections](./Advanced_C%23/mds/13_Concurrent_Collections.md) | `Advanced_C#/mds/13_Concurrent_Collections.md` |
+
+ConcurrentDictionary, ConcurrentQueue, ConcurrentBag, BlockingCollection, and thread-safe collection patterns.
+
+**[Back to Top](#table-of-contents)**
+
+#### IDisposable & Using
+| Document | Path |
+|----------|------|
+| [IDisposable & Using](./Advanced_C%23/mds/11_IDisposable_Using.md) | `Advanced_C#/mds/11_IDisposable_Using.md` |
+
+Resource cleanup patterns, deterministic disposal, finalizers, SafeHandle, and the Dispose pattern implementation.
+
+**[Back to Top](#table-of-contents)**
+
+#### List Deep Dive
+| Document | Path |
+|----------|------|
+| [List Deep Dive](./Advanced_C%23/mds/18-list-deep-dive.md) | `Advanced_C#/mds/18-list-deep-dive.md` |
+
+List<T> internals, capacity management, growth algorithms, trimming excess, and performance characteristics.
+
+**[Back to Top](#table-of-contents)**
+
+#### SortedList, Dictionary, HashSet
+| Document | Path |
+|----------|------|
+| [SortedList, Dictionary, HashSet](./Advanced_C%23/mds/20-sortedlist-dictionary-hashset.md) | `Advanced_C#/mds/20-sortedlist-dictionary-hashset.md` |
+
+Hash table implementations, Dictionary internals, hash code algorithms, collision resolution, and custom equality comparers.
+
+**[Back to Top](#table-of-contents)**
+
+---
+
+## 4. LINQ
+
+Language Integrated Query and data transformation strategies.
+
+| Document | Path |
+|----------|------|
+| [LINQ Deep Dive](./LINQ/mds/linq-deep-dive.md) | `LINQ/mds/linq-deep-dive.md` |
+
+Query syntax vs method syntax, deferred vs immediate execution, standard query operators, LINQ providers (LINQ to Objects, LINQ to SQL), and expression trees.
+
+**[Back to Top](#table-of-contents)**
+
+---
+
+## 5. Database Architecture
+
+SQL optimization, design patterns, and reliability strategies for relational databases.
+
+### 5.1 Design & Structure
+
+#### Database Design & Normalization
+| Document | Path |
+|----------|------|
+| [Database Design & Normalization](./database/mds/01-database-design-normalization.md) | `database/mds/01-database-design-normalization.md` |
+
+First through Fifth Normal Forms (1NF-5NF), denormalization strategies, schema design principles, and entity-relationship modeling.
+
+**[Back to Top](#table-of-contents)**
+
+#### Data Validation & Constraints
+| Document | Path |
+|----------|------|
+| [Data Validation & Constraints](./database/mds/03-data-validation-constraints.md) | `database/mds/03-data-validation-constraints.md` |
+
+CHECK constraints, UNIQUE constraints, FOREIGN KEY relationships, DEFAULT values, triggers for validation, and domain integrity.
+
+**[Back to Top](#table-of-contents)**
+
+#### Pagination Strategies
+| Document | Path |
+|----------|------|
+| [Pagination Strategies](./database/mds/04-pagination-strategies.md) | `database/mds/04-pagination-strategies.md` |
+
+OFFSET/FETCH pagination, keyset pagination (seek method), cursor-based pagination, performance comparison, and implementation patterns.
+
+**[Back to Top](#table-of-contents)**
+
+### 5.2 Performance & Optimization
+
+#### Indexing Strategies
+| Document | Path |
+|----------|------|
+| [Indexing Strategies](./database/mds/05-indexing-strategies.md) | `database/mds/05-indexing-strategies.md` |
+
+B-tree index structure, clustered vs non-clustered indexes, composite indexes, index selectivity, and index maintenance.
+
+**[Back to Top](#table-of-contents)**
+
+#### Advanced Indexes
+| Document | Path |
+|----------|------|
+| [Advanced Indexes](./database/mds/09-advanced-indexes.md) | `database/mds/09-advanced-indexes.md` |
+
+Covering indexes, filtered indexes (conditional indexes), indexed views, full-text search indexes, and columnstore indexes.
+
+**[Back to Top](#table-of-contents)**
+
+#### Query Performance
+| Document | Path |
+|----------|------|
+| [Query Performance](./database/mds/06-query-performance.md) | `database/mds/06-query-performance.md` |
+
+Query tuning fundamentals, SARGable queries, parameter sniffing, statistics maintenance, and cardinality estimation.
+
+**[Back to Top](#table-of-contents)**
+
+#### Query Optimization
+| Document | Path |
+|----------|------|
+| [Query Optimization](./database/mds/13-query-optimization.md) | `database/mds/13-query-optimization.md` |
+
+Query rewrite strategies, plan guides, query hints, optimization techniques for complex queries, and recursive CTEs.
+
+**[Back to Top](#table-of-contents)**
+
+#### Execution Plans
+| Document | Path |
+|----------|------|
+| [Execution Plans](./database/mds/10-execution-plans.md) | `database/mds/10-execution-plans.md` |
+
+Reading graphical and XML execution plans, plan operators, cost estimation, index seeks vs scans, and plan cache analysis.
+
+**[Back to Top](#table-of-contents)**
+
+### 5.3 Concurrency & Reliability
+
+#### Locking & Concurrency
+| Document | Path |
+|----------|------|
+| [Locking & Concurrency](./database/mds/08-locking-concurrency.md) | `database/mds/08-locking-concurrency.md` |
+
+Transaction isolation levels (Read Uncommitted to Serializable), locking hints, deadlock detection and resolution, row versioning (SNAPSHOT isolation).
+
+**[Back to Top](#table-of-contents)**
+
+#### Backup & Recovery
+| Document | Path |
+|----------|------|
+| [Backup & Recovery](./database/mds/02-backup-recovery.md) | `database/mds/02-backup-recovery.md` |
+
+Full backups, differential backups, transaction log backups, point-in-time recovery strategies, and disaster recovery planning.
+
+**[Back to Top](#table-of-contents)**
+
+### 5.4 Advanced Topics
+
+#### SQL Functions
+| Document | Path |
+|----------|------|
+| [SQL Functions](./database/mds/07-sql-functions.md) | `database/mds/07-sql-functions.md` |
+
+Scalar functions, table-valued functions (inline and multi-statement), window functions (ROW_NUMBER, RANK, LEAD, LAG), and aggregate functions.
+
+**[Back to Top](#table-of-contents)**
+
+#### Security & Vulnerabilities
+| Document | Path |
+|----------|------|
+| [Security & Vulnerabilities](./database/mds/11-security-vulnerabilities.md) | `database/mds/11-security-vulnerabilities.md` |
+
+SQL injection prevention, parameterized queries, encryption (TDE, column-level), row-level security, and least privilege principles.
+
+**[Back to Top](#table-of-contents)**
+
+#### NoSQL Fundamentals
+| Document | Path |
+|----------|------|
+| [NoSQL Fundamentals](./database/mds/12-nosql-fundamentals.md) | `database/mds/12-nosql-fundamentals.md` |
+
+Document databases (MongoDB), key-value stores (Redis), column-family stores (Cassandra), graph databases (Neo4j), and CAP theorem.
+
+**[Back to Top](#table-of-contents)**
+
+---
+
+## 6. Quality Assurance
 
 Modern testing methodologies for enterprise applications.
 
-  * [Unit Testing Fundamentals](./Advanced_C%23/mds/15_Unit_Testing.md)
-  * [Mocking Techniques](./Advanced_C%23/mds/16_Mocking.md)
+### 6.1 Unit Testing
+| Document | Path |
+|----------|------|
+| [Unit Testing Fundamentals](./Advanced_C%23/mds/15_Unit_Testing.md) | `Advanced_C#/mds/15_Unit_Testing.md` |
 
------
+xUnit, NUnit, and MSTest frameworks, test organization, Arrange-Act-Assert pattern, data-driven tests, and code coverage analysis.
+
+**[Back to Top](#table-of-contents)**
+
+### 6.2 Mocking
+| Document | Path |
+|----------|------|
+| [Mocking Techniques](./Advanced_C%23/mds/16_Mocking.md) | `Advanced_C#/mds/16_Mocking.md` |
+
+Moq and NSubstitute frameworks, dependency injection for testability, test doubles (stubs, mocks, fakes), and mocking best practices.
+
+**[Back to Top](#table-of-contents)**
+
+---
+
+## 7. Project Overview
+
+### Learning Paths
+
+**Beginner Path:**  
+C# Fundamentals → OOP Pillars → LINQ → Database Design & Normalization
+
+**Intermediate Path:**  
+Advanced Generics → Delegates → Async/Await Deep Dive → Concurrent Collections → Indexing Strategies
+
+**Expert Path:**  
+Thread Pool Starvation → Interlocked → Span/Memory → Execution Plans → Query Optimization
+
+**Database Specialist Path:**  
+Normalization → Indexing Strategies → Query Optimization → Locking & Concurrency → Backup & Recovery
+
+### Repository Statistics
+
+- **Total Documents:** 50+ technical deep-dives
+- **Primary Categories:** 6 major domains
+- **C# & .NET Topics:** 30 documents
+- **Database Topics:** 13 documents
+- **Testing Topics:** 2 documents
 
 ### Project Objectives
 
-  * **Under-the-Hood Understanding:** Moving beyond syntax to understand CLR behavior and memory allocation.
-  * **Concurrency Mastery:** Navigating complex threading scenarios and avoiding common pitfalls like deadlocks and race conditions.
-  * **Database Excellence:** Bridging the gap between code and data through optimized SQL and efficient LINQ providers.
+**Under-the-Hood Understanding:** Moving beyond syntax to understand CLR behavior, memory allocation patterns, and runtime internals.
 
------
+**Concurrency Mastery:** Navigating complex threading scenarios, avoiding deadlocks and race conditions, and building responsive applications.
 
-**Author:** Ayman Mohamed, .NET Full Stack Engineer  
+**Database Excellence:** Bridging the gap between application code and data storage through optimized SQL, efficient LINQ providers, and robust schema design.
+
+**Production-Ready Testing:** Building reliable, maintainable test suites that enable confident refactoring and continuous delivery.
+
+### Author
+
+**Ayman Mohamed** — .NET Full Stack Engineer  
 **Contributor:** Built with professional guidance from Senior Engineer Abdelrahman
+
+---
+
+*Happy Learning*
+
+**[Back to Top](#table-of-contents)**
