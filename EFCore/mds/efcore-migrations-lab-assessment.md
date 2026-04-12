@@ -20,18 +20,18 @@ A hands-on assessment covering real-world migration scenarios, team collaboratio
 ## Table of Contents
 
 1. [Initial Setup - 3 Table Project](#question-1-initial-setup)
-2. [Pending Changes and Database Sync](#question-2-pending-changes)
-3. [Migration Execution Methods](#question-3-migration-execution)
-4. [Accident Scenarios - Deleted Migrations Folder](#question-4-accident-scenarios)
-5. [Migration File Deletion](#question-5-migration-deletion)
-6. [Reverting Multiple Migrations](#question-6-reverting-migrations)
-7. [Development Revert Strategies](#question-7-revert-strategies)
-8. [Multiple DbContexts](#question-8-multiple-contexts)
-9. [Empty Migrations Research](#question-9-empty-migrations)
-10. [SQL Script Generation](#question-10-sql-scripts)
-11. [History Table Recovery](#question-11-history-recovery)
-12. [Team Git Conflicts](#question-12-git-conflicts)
-13. [Pull Before Migration](#question-13-pull-routine)
+2. [Pending Changes and Database Sync](#question-2-pending-changes-and-database-sync)
+3. [Migration Execution Methods](#question-3-migration-execution-methods)
+4. [Accident Scenarios - Deleted Migrations Folder](#question-4-accident-scenarios---deleted-migrations-folder)
+5. [Migration File Deletion](#question-5-migration-file-deletion)
+6. [Reverting Multiple Migrations](#question-6-reverting-multiple-migrations)
+7. [Development Revert Strategies](#question-7-development-revert-strategies)
+8. [Multiple DbContexts](#question-8-multiple-dbcontexts)
+9. [Empty Migrations Research](#question-9-empty-migrations-research)
+10. [SQL Script Generation](#question-10-sql-script-generation)
+11. [History Table Recovery](#question-11-history-table-recovery)
+12. [Team Git Conflicts](#question-12-team-git-conflicts)
+13. [Pull Before Migration](#question-13-pull-before-migration)
 
 ---
 
