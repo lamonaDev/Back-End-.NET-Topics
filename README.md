@@ -39,6 +39,7 @@ A comprehensive technical repository documenting advanced C# mechanics, .NET int
   - [6.4 DbContext Deep Dive](#64-dbcontext-deep-dive)
   - [6.5 Dependency Injection](#65-dependency-injection)
   - [6.6 Connection Pool Exhaustion](#66-connection-pool-exhaustion)
+  - [6.7 Migrations Lab Assessment](#67-migrations-lab-assessment)
 - [7. Quality Assurance](#7-quality-assurance)
   - [7.1 Unit Testing](#71-unit-testing)
   - [7.2 Mocking](#72-mocking)
@@ -567,6 +568,15 @@ Connection pool mechanics, exhaustion causes and detection, long-running query a
 
 **[Back to Top](#table-of-contents)**
 
+### 6.7 Migrations Lab Assessment
+| Document | Path |
+|----------|------|
+| [Migrations Lab Assessment](./EFCore/mds/efcore-migrations-lab-assessment.md) | `EFCore/mds/efcore-migrations-lab-assessment.md` |
+
+Comprehensive hands-on assessment covering real-world migration scenarios, team collaboration edge cases, database lifecycle management, accident recovery, Git conflict resolution, and SQL script generation for production deployments.
+
+**[Back to Top](#table-of-contents)**
+
 ---
 
 ## 7. Quality Assurance
@@ -621,11 +631,11 @@ C# Fundamentals → OOP → Database Design → EF Core (Migrations, DbContext, 
 
 ### Repository Statistics
 
-- **Total Documents:** 56+ technical deep-dives
+- **Total Documents:** 57+ technical deep-dives
 - **Primary Categories:** 7 major domains
 - **C# & .NET Topics:** 30 documents
 - **Database Topics:** 13 documents
-- **EF Core Topics:** 6 documents
+- **EF Core Topics:** 7 documents
 C# Fundamentals → OOP Pillars → LINQ → Database Design & Normalization
 
 **Intermediate Path:**  
