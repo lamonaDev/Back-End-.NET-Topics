@@ -582,10 +582,11 @@ Connection pool mechanics, exhaustion causes and detection, long-running query a
 Comprehensive hands-on assessment covering real-world migration scenarios, team collaboration edge cases, database lifecycle management, accident recovery, Git conflict resolution, and SQL script generation for production deployments.
 
 **[Back to Top](#table-of-contents)**
-### 6.8 DbSet, Concurrency & Relationships
+
+### 6.8 DbSet Concurrency and Relationships
 | Document | Path |
 |----------|------|
-| [DbSet, Concurrency & Relationships](./EFCore/mds/07_Dbset_Concurrency.md) | `EFCore/mds/07_Dbset_Concurrency.md` |
+| [DbSet Concurrency and Relationships](./EFCore/mds/07_Dbset_Concurrency.md) | `EFCore/mds/07_Dbset_Concurrency.md` |
 
 DbSet<TEntity> generic patterns, optimistic concurrency with RowVersion/Timestamp tokens, handling DbUpdateConcurrencyException, and InverseProperty attribute for multiple navigation relationships.
 
@@ -609,37 +610,37 @@ AsNoTracking vs AsNoTrackingWithIdentityResolution, SingleQuery vs SplitQuery fo
 
 **[Back to Top](#table-of-contents)**
 
-### 6.11 Query Translation & Debugging
+### 6.11 Query Translation and Debugging
 | Document | Path |
 |----------|------|
-| [Query Translation & Debugging](./EFCore/mds/10_Query_Translation.md) | `EFCore/mds/10_Query_Translation.md` |
+| [Query Translation and Debugging](./EFCore/mds/10_Query_Translation.md) | `EFCore/mds/10_Query_Translation.md` |
 
 Client vs server evaluation boundaries, untranslatable LINQ patterns, ToQueryString for SQL preview, TagWith for query correlation, EnableDetailedErrors for exception diagnostics, and logging configuration with LogLevel filtering.
 
 **[Back to Top](#table-of-contents)**
 
-### 6.12 LINQ, Expressions & Functions
+### 6.12 LINQ Expressions and Functions
 | Document | Path |
 |----------|------|
-| [LINQ, Expressions & Functions](./EFCore/mds/11_LINQ_Expressions.md) | `EFCore/mds/11_LINQ_Expressions.md` |
+| [LINQ Expressions and Functions](./EFCore/mds/11_LINQ_Expressions.md) | `EFCore/mds/11_LINQ_Expressions.md` |
 
 Expression trees structure and dynamic building, EF.Functions (Like, DateDiff) for database-specific operations, and Regular Expressions limitations (not translatable to SQL) with workaround patterns.
 
 **[Back to Top](#table-of-contents)**
 
-### 6.13 Interceptors & Raw SQL
+### 6.13 Interceptors and Raw SQL
 | Document | Path |
 |----------|------|
-| [Interceptors & Raw SQL](./EFCore/mds/12_Interceptors_RawSQL.md) | `EFCore/mds/12_Interceptors_RawSQL.md` |
+| [Interceptors and Raw SQL](./EFCore/mds/12_Interceptors_RawSQL.md) | `EFCore/mds/12_Interceptors_RawSQL.md` |
 
 SaveChangesInterceptor for audit columns, connection resiliency with retry policies, raw SQL execution with FromSqlRaw/FromSqlInterpolated, migrations best practices, and IEntityTypeConfiguration patterns.
 
 **[Back to Top](#table-of-contents)**
 
-### 6.14 .NET Ecosystem Tools
+### 6.14 DotNET Ecosystem Tools
 | Document | Path |
 |----------|------|
-| [.NET Ecosystem Tools](./EFCore/mds/13_DotNet_Ecosystem.md) | `EFCore/mds/13_DotNet_Ecosystem.md` |
+| [DotNET Ecosystem Tools](./EFCore/mds/13_DotNet_Ecosystem.md) | `EFCore/mds/13_DotNet_Ecosystem.md` |
 
 Central Package Management (CPM) for version consistency across solutions, and Bogus library for realistic test data generation with datasets for commerce, finance, and personal data.
 
